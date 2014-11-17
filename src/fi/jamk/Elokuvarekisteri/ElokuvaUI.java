@@ -22,9 +22,14 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class ElokuvaUI extends JFrame {
     private Elokuvalista elokuvalista;
     private Elokuvamalli elokuvamalli;
+    private Henkilolista henkilolista;
+    private Henkilomalli henkilomalli;
     
     private JTable elokuvatable;
+    private JTable henkilotable;
+    
     private JScrollPane jScrollPane;
+    private JScrollPane jScrollPane2;
     
     public ElokuvaUI() {
         setTitle("What da fuq - Elokuvarekisteri");
@@ -34,19 +39,60 @@ public class ElokuvaUI extends JFrame {
         elokuvatable = new javax.swing.JTable();
         jScrollPane.setViewportView(elokuvatable);
         
+        jScrollPane2 = new javax.swing.JScrollPane();
+        henkilotable = new javax.swing.JTable();
+        jScrollPane2.setViewportView(henkilotable);
+        
         elokuvalista = new Elokuvalista();
         elokuvamalli = new Elokuvamalli(elokuvalista);
         elokuvatable.setModel(elokuvamalli);
-                
+        
+        henkilolista = new Henkilolista();
+        henkilomalli = new Henkilomalli(henkilolista);
+        henkilotable.setModel(henkilomalli);
+        
         JPanel paneeli = new JPanel();
         
         JButton lisaa = new JButton("Lisaa uusi elokuva (rivi)");
         JButton jarjesta = new JButton("Jarjestä valmistusvuoden mukaan");
-        JButton poista = new JButton("Poista valittu");
+        JButton poista = new JButton("Poista valittu elokuva");
         
         paneeli.add(lisaa);
         paneeli.add(poista);
         paneeli.add(jarjesta);
+        
+        JPanel henkilopaneeli = new JPanel();
+        
+        JButton lisaahenkilo = new JButton("Lisää uusi henkilö");
+        JButton jarjestahenkilot = new JButton ("Järjestä syntymävuoden mukaan");
+        JButton poistahenkilo = new JButton("Poista valittu henkilö");
+        
+        henkilopaneeli.add(lisaahenkilo);
+        henkilopaneeli.add(jarjestahenkilot);
+        henkilopaneeli.add(poistahenkilo);
+        
+        lisaahenkilo.addActionListener(new ActionListener(){
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                henkilomalli.lisaa();
+            }
+        
+        });
+        jarjestahenkilot.addActionListener(new ActionListener(){
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                henkilomalli.jarjesta();
+            }
+        
+        });
+        poistahenkilo.addActionListener(new ActionListener(){
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                int valittuRivi = henkilotable.getSelectedRow();
+                henkilomalli.poistaRivi(valittuRivi);
+            }
+        
+        });
         
         // tapahtuman käsittelijät
         lisaa.addActionListener(new ActionListener(){
@@ -76,9 +122,12 @@ public class ElokuvaUI extends JFrame {
         });
         
         // UI
-        getContentPane().add(jScrollPane, BorderLayout.CENTER);
-        getContentPane().add(paneeli, BorderLayout.SOUTH);
+        getContentPane().add(jScrollPane, BorderLayout.WEST);
+        getContentPane().add(paneeli, BorderLayout.NORTH);
         pack();
+        getContentPane().add(jScrollPane2, BorderLayout.EAST);
+        getContentPane().add(henkilopaneeli, BorderLayout.SOUTH);
+       pack();
     
     }
     

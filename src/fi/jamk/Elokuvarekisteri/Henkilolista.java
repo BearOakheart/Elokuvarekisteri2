@@ -20,22 +20,22 @@ import java.util.Comparator;
  *
  * @author Asmo
  */
-class Elokuvalista implements Serializable {
-    private ArrayList<Elokuva> elokuvat;
-    private final String elokuvanTiedot = "elokuvalista.data";
+class Henkilolista implements Serializable {
+    private ArrayList<Henkilo> henkilot;
+    private final String henkilonTiedot = "henkilolista.data";
     
     //konstruktori
-    public Elokuvalista() {
-        this.elokuvat = new ArrayList<>();
+    public Henkilolista() {
+        this.henkilot = new ArrayList<>();
         alustaLista();
     }
     
     // luetaan tiedostosta tai luodaan oletus elokuvat
     private void alustaLista() {
-    File el = new File(elokuvanTiedot);
+    File el = new File(henkilonTiedot);
     
     if (!el.exists()) {
-        elokuvat.add(new Elokuva("Esimerkki elokuva", "Ohjannut Taavetti", 1999, 130, "Action"));
+        henkilot.add(new Henkilo(01,"Jaakko", "Mäkelä", 1959, "Suomi", "Ohjaaja"));
         tallenna();
     }
     else {
@@ -46,8 +46,8 @@ class Elokuvalista implements Serializable {
     
     // tulostetaan elokuvat output-ikkunaan
     private void tulosta() {
-        for (Elokuva e : elokuvat) {
-        System.out.println(e);
+        for (Henkilo h : henkilot) {
+        System.out.println(h);
         
         }
     }
@@ -56,8 +56,8 @@ class Elokuvalista implements Serializable {
     public void lue() {
         ObjectInputStream input = null;
         try {
-            input = new ObjectInputStream(new FileInputStream(new File(elokuvanTiedot)));
-            elokuvat = (ArrayList<Elokuva>) input.readObject();
+            input = new ObjectInputStream(new FileInputStream(new File(henkilonTiedot)));
+            henkilot = (ArrayList<Henkilo>) input.readObject();
             
         } 
         catch (IOException ex)
@@ -91,8 +91,8 @@ class Elokuvalista implements Serializable {
         ObjectOutputStream output = null;
         try
         {
-            output = new ObjectOutputStream(new FileOutputStream(new File(elokuvanTiedot)));
-            output.writeObject(elokuvat);
+            output = new ObjectOutputStream(new FileOutputStream(new File(henkilonTiedot)));
+            output.writeObject(henkilot);
             
         }
         catch (IOException ex)
@@ -114,49 +114,50 @@ class Elokuvalista implements Serializable {
             
     }
     // palauttaa elokuvalistan
-    public ArrayList<Elokuva> palauta() {
-        return elokuvat;
+    public ArrayList<Henkilo> palauta() {
+        return henkilot;
     }
     // lisää uuden elokuvan
     public void lisaaUusi() {
-        elokuvat.add(new Elokuva("Elokuvannimi", "Ohjaaja", 0,0,"Lajityyppi"));
+        henkilot.add(new Henkilo(01,"Etunimi", "Sukunimi", 0,"Maa","Rooli"));
         tallenna();
     
     }
     // poistaa elokuvan rivilt'
     public void poista (int rivi) {
-        elokuvat.remove(rivi);
+        henkilot.remove(rivi);
         tallenna();
     
     }
     // elokuvien jarjestaminen
     public void jarjesta() {
-        Collections.sort(elokuvat, new JarjestaElokuvat());
-        System.out.println("Elokuvalista jarjestetty julkaisuvuoden mukaan");
+        Collections.sort(henkilot, new JarjestaHenkilot());
+        System.out.println("Henkilot järjestetty syntymävuoden mukaan");
         tallenna();
     }
     
  
     
     public void paivita(Object uusi, int rivi, int sarake) {
-        Elokuva elokuva = elokuvat.get(rivi);
-        if (sarake == 0) elokuva.setNimi((String) uusi);
-        else if (sarake == 1) elokuva.setOhjaaja((String) uusi);
-        else if (sarake == 2) elokuva.setJulkaisuvuosi(((Integer) uusi).intValue());
-        else if (sarake == 3) elokuva.setPituus(((Integer) uusi).intValue());
-        
-        elokuvat.remove(rivi);
-        elokuvat.add(rivi, elokuva);
+        Henkilo henkilo = henkilot.get(rivi);
+        if (sarake == 0) henkilo.setId(((Integer) uusi).intValue());
+        else if (sarake == 1) henkilo.setEtunimi((String) uusi);
+        else if (sarake == 2) henkilo.setSukunimi((String) uusi);
+        else if (sarake == 3) henkilo.setSyntymavuosi(((Integer) uusi).intValue());
+        else if (sarake == 4) henkilo.setMaa((String) uusi);
+        else if (sarake == 5) henkilo.setRooli((String) uusi);
+        henkilot.remove(rivi);
+        henkilot.add(rivi, henkilo);
         tallenna();
     }
     
-     class JarjestaElokuvat implements Comparator<Elokuva>
+     class JarjestaHenkilot implements Comparator<Henkilo>
     {
          @Override
-         public int compare (Elokuva e1, Elokuva e2)
+         public int compare (Henkilo h1, Henkilo h2)
          {
-             if (e1.getJulkaisuvuosi() > e2.getJulkaisuvuosi()) return -1;
-             if (e2.getJulkaisuvuosi() < e1.getJulkaisuvuosi()) return 1;
+             if (h1.getSyntymavuosi() > h2.getSyntymavuosi()) return -1;
+             if (h2.getSyntymavuosi() < h1.getSyntymavuosi()) return 1;
              return 0;
          }
     }

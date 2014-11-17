@@ -11,19 +11,21 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Asmo
  */
-class Elokuvamalli extends AbstractTableModel {
-    private final String[] sarakeNimet = new String[]{"Nimi", "Ohjaaja", "Julkaisuvuosi", "Pituus (min)", "Lajityyppi"};
-    private Elokuvalista elokuvalista;
-    private Class<?>[] tyypit = new Class[]{String.class, String.class, Integer.class, Integer.class, String.class};
+public class Henkilomalli extends AbstractTableModel {
+    private final String[] sarakeNimet = new String[]{"Id", "Etunimi", "Sukunimi", "Syntymävuosi", "Maa", "Rooli"};
+    private Henkilolista henkilolista;
+    private Class<?>[] tyypit = new Class[]{Integer.class, String.class, String.class, Integer.class, String.class, String.class};
     
-    public Elokuvamalli() {
-        this.elokuvalista = null;
+    public Henkilomalli() {
+        this.henkilolista = null;
     }
     
-    public Elokuvamalli(Elokuvalista elokuvalista){
-        this.elokuvalista = elokuvalista;
+    public Henkilomalli(Henkilolista henkilolista){
+        this.henkilolista = henkilolista;
+    
     }
-    @Override
+    
+     @Override
     public String getColumnName(int sarakeIndeksi) {
         return sarakeNimet[sarakeIndeksi];
     }
@@ -34,26 +36,24 @@ class Elokuvamalli extends AbstractTableModel {
     
     @Override
     public Object getValueAt(int rivi, int sarake) {
-        if (rivi < 0 || rivi >= elokuvalista.palauta().size()) return null;
-        Elokuva elokuva = elokuvalista.palauta().get(rivi);
+        if (rivi < 0 || rivi >= henkilolista.palauta().size()) return null;
+        Henkilo henkilo = henkilolista.palauta().get(rivi);
         switch (sarake) {
-            case 0:  return elokuva.getNimi();
-            case 1:  return elokuva.getOhjaaja();
-            case 2:  return elokuva.getJulkaisuvuosi();
-            case 3:  return elokuva.getPituus();
-            case 4:  return elokuva.getLajityyppi();
+            case 0:  return henkilo.getId();
+            case 1:  return henkilo.getEtunimi();
+            case 2:  return henkilo.getSukunimi();
+            case 3:  return henkilo.getSyntymavuosi();
+            case 4:  return henkilo.getMaa();
+            case 5:  return henkilo.getRooli();
             default: return null;
         }
     }
     
-    /* Voidaan muuttaa taulukon käyttämän mallin arvoja toteuttamalla setValueAt() -metodi
-     * jolle tulee parametrina päivitetty arvo, että sekä rivi että sarakenumero.
-     */
     @Override
     public void setValueAt(Object uusi, int rivi, int sarake) {
         if (sarake >= 0 && sarake < sarakeNimet.length)
         {
-            elokuvalista.paivita(uusi, rivi, sarake);
+            henkilolista.paivita(uusi, rivi, sarake);
             // ilmoittaa datan muutoksesta JTable-komponentille
             fireTableCellUpdated(rivi, sarake);
         
@@ -61,9 +61,9 @@ class Elokuvamalli extends AbstractTableModel {
     
     }
     
-     @Override
+    @Override
     public int getRowCount() {
-        return elokuvalista.palauta().size();
+        return henkilolista.palauta().size();
     }
     
     @Override
@@ -81,18 +81,18 @@ class Elokuvamalli extends AbstractTableModel {
     }
     
     public void lisaa() {
-        elokuvalista.lisaaUusi();
+        henkilolista.lisaaUusi();
         this.fireTableDataChanged();
     }
     
     public void jarjesta() {
-        elokuvalista.jarjesta();
+        henkilolista.jarjesta();
         this.fireTableDataChanged();
     }
         
     public void poistaRivi(int rivi) {
         if (rivi >= 0) {
-            elokuvalista.poista(rivi);
+            henkilolista.poista(rivi);
             this.fireTableDataChanged();
         }
     }

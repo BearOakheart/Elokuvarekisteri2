@@ -14,15 +14,25 @@ import java.io.Serializable;
 public class Elokuva implements Serializable {
         private String nimi;
         private String ohjaaja;
-        private int valmistusvuosi;
+        private int julkaisuvuosi;
         private int pituus;
+        private String lajityyppi;
         
-    public Elokuva(String nimi, String ohjaaja, int valmistusvuosi, int pituus)
+    public Elokuva(String nimi, String ohjaaja, int julkaisuvuosi, int pituus, String lajityyppi)
     {
         this.nimi = nimi;
         this.ohjaaja = ohjaaja;
-        this.valmistusvuosi = valmistusvuosi;
+        this.julkaisuvuosi = julkaisuvuosi;
         this.pituus = pituus;
+        this.lajityyppi = lajityyppi;
+    }
+
+    public String getLajityyppi() {
+        return lajityyppi;
+    }
+
+    public void setLajityyppi(String lajityyppi) {
+        this.lajityyppi = lajityyppi;
     }
 
     public String getNimi() {
@@ -41,12 +51,12 @@ public class Elokuva implements Serializable {
         this.ohjaaja = ohjaaja;
     }
 
-    public int getValmistusvuosi() {
-        return valmistusvuosi;
+    public int getJulkaisuvuosi() {
+        return julkaisuvuosi;
     }
 
-    public void setValmistusvuosi(int valmistusvuosi) {
-        this.valmistusvuosi = valmistusvuosi;
+    public void setJulkaisuvuosi(int julkaisuvuosi) {
+        this.julkaisuvuosi = julkaisuvuosi;
     }
 
     public int getPituus() {
@@ -57,8 +67,8 @@ public class Elokuva implements Serializable {
         this.pituus = pituus;
     }
   
-     @Override
+    @Override
     public String toString() {
-        return "[" + nimi + " " + ohjaaja + ", " + valmistusvuosi + ", " + pituus + " min.]";
+        return "[" + nimi + " " + ohjaaja + ", " + julkaisuvuosi + ", " + pituus + " min," + lajityyppi + "]";
     }
 }
