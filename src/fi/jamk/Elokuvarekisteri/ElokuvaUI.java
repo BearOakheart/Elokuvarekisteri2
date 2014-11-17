@@ -41,7 +41,7 @@ public class ElokuvaUI extends JFrame {
         JPanel paneeli = new JPanel();
         
         JButton lisaa = new JButton("Lisaa uusi elokuva (rivi)");
-        JButton jarjesta = new JButton("Jarjesta valmistusvuoden mukaan");
+        JButton jarjesta = new JButton("Jarjestä valmistusvuoden mukaan");
         JButton poista = new JButton("Poista valittu");
         
         paneeli.add(lisaa);
