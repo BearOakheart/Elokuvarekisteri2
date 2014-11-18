@@ -81,7 +81,7 @@ class Henkilolista implements Serializable {
                 }
         }
         // debuggausta konsolille
-        System.out.println("Elokuvalista luettu uudelleen tiedostosta");
+        System.out.println("Henkilolista luettu uudelleen tiedostosta");
         tulosta();
     
     }
@@ -113,17 +113,17 @@ class Henkilolista implements Serializable {
                 
             
     }
-    // palauttaa elokuvalistan
+    // palauttaa henkilölistan
     public ArrayList<Henkilo> palauta() {
         return henkilot;
     }
-    // lisää uuden elokuvan
+    // lisää uuden henkilön
     public void lisaaUusi() {
         henkilot.add(new Henkilo(01,"Etunimi", "Sukunimi", 0,"Maa","Rooli"));
         tallenna();
     
     }
-    // poistaa elokuvan rivilt'
+    // poistaa henkilön riviltä
     public void poista (int rivi) {
         henkilot.remove(rivi);
         tallenna();

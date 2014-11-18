@@ -124,7 +124,7 @@ public class ElokuvaUI extends JFrame {
         // UI
         getContentPane().add(jScrollPane, BorderLayout.WEST);
         getContentPane().add(paneeli, BorderLayout.NORTH);
-        pack();
+        
         getContentPane().add(jScrollPane2, BorderLayout.EAST);
         getContentPane().add(henkilopaneeli, BorderLayout.SOUTH);
        pack();
