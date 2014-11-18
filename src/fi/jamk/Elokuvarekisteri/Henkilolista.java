@@ -30,12 +30,12 @@ class Henkilolista implements Serializable {
         alustaLista();
     }
     
-    // luetaan tiedostosta tai luodaan oletus elokuvat
+    // luetaan tiedostosta tai luodaan oletus henkilöt
     private void alustaLista() {
-    File el = new File(henkilonTiedot);
+    File hlo = new File(henkilonTiedot);
     
-    if (!el.exists()) {
-        henkilot.add(new Henkilo(01,"Jaakko", "Mäkelä", 1959, "Suomi", "Ohjaaja"));
+    if (!hlo.exists()) {
+        henkilot.add(new Henkilo(01, "Jaakko", "Mäkelä", 1959, "Suomi", "Ohjaaja"));
         tallenna();
     }
     else {
@@ -44,7 +44,7 @@ class Henkilolista implements Serializable {
         tulosta();
     }
     
-    // tulostetaan elokuvat output-ikkunaan
+    // tulostetaan henkilot output-ikkunaan
     private void tulosta() {
         for (Henkilo h : henkilot) {
         System.out.println(h);
@@ -54,6 +54,7 @@ class Henkilolista implements Serializable {
     
     // Elokuvien lukeminen tiedostosta
     public void lue() {
+        
         ObjectInputStream input = null;
         try {
             input = new ObjectInputStream(new FileInputStream(new File(henkilonTiedot)));
@@ -62,7 +63,7 @@ class Henkilolista implements Serializable {
         } 
         catch (IOException ex)
         {
-                System.out.println("Virhe tiedostosta luettaessa" + ex);
+                System.out.println("Virhe tiedostosta luettaessa " + ex);
                 
         }
         catch (ClassNotFoundException e) 
@@ -85,7 +86,7 @@ class Henkilolista implements Serializable {
         tulosta();
     
     }
-    // elokuvien tallennus tiedostoon.
+    // henkiloiden tallennus tiedostoon.
     public void tallenna() {
     
         ObjectOutputStream output = null;
@@ -97,7 +98,7 @@ class Henkilolista implements Serializable {
         }
         catch (IOException ex)
         {
-            System.out.println("Virhe tiedostoon kirjoittamisessa" +ex);
+            System.out.println("Virhe tiedostoon kirjoittamisessa " +ex);
         }
         finally 
         {
@@ -119,7 +120,7 @@ class Henkilolista implements Serializable {
     }
     // lisää uuden henkilön
     public void lisaaUusi() {
-        henkilot.add(new Henkilo(01,"Etunimi", "Sukunimi", 0,"Maa","Rooli"));
+        henkilot.add(new Henkilo(01, "Etunimi", "Sukunimi", 0, "Maa", "Rooli"));
         tallenna();
     
     }

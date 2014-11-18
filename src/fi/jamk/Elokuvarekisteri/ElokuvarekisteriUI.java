@@ -7,6 +7,8 @@ package fi.jamk.Elokuvarekisteri;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URL;
 import java.net.URLConnection;
 import javax.swing.ImageIcon;
@@ -101,26 +103,86 @@ public class ElokuvarekisteriUI extends JFrame {
         panel1.add(jScrollPane,BorderLayout.CENTER);
         panel1.add(paneeli,BorderLayout.SOUTH);
         pack();
+        
+        // tapahtuman käsittelijät
+        lisaa.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                elokuvamalli.lisaa();
+            
+            }
+        
+        });
+        
+        jarjesta.addActionListener(new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            elokuvamalli.jarjesta();
+        }
+        });
+        
+        poista.addActionListener(new ActionListener(){
+        
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            int valittuRivi = elokuvatable.getSelectedRow();
+            elokuvamalli.poistaRivi(valittuRivi);
+            }
+        });
     }
     
     public final void teePanel2() {
         panel2 = new JPanel();
         panel2.setLayout(new BorderLayout());
-        JLabel label1 = new JLabel("Käyttäjä:");
-        JTextField field = new JTextField();
-        field.setColumns(18);
-        JLabel label2 = new JLabel("Salasana:");
-        JPasswordField fieldPass = new JPasswordField();
-        fieldPass.setColumns(18);
-        JPanel sisalto = new JPanel();
-        sisalto.setLayout(new FlowLayout(FlowLayout.LEFT));
-        sisalto.add(label1);
-        sisalto.add(field);
-        sisalto.add(label2);
-        sisalto.add(fieldPass);  
-        JLabel teksti = new JLabel("JLabel - JTextField - JPasswordField");
-        sisalto.add(teksti);
-        panel2.add(sisalto,BorderLayout.CENTER);
+        
+        JButton lisaahenkilo = new JButton("Lisää henkilö");
+        JButton jarjestahenkilot = new JButton("Järjestä syntymävuoden mukaan");
+        JButton poistahenkilo = new JButton("Poista valittu");
+        
+        JPanel paneeli2 = new JPanel();
+        
+        paneeli2.add(lisaahenkilo);
+        paneeli2.add(jarjestahenkilot);
+        paneeli2.add(poistahenkilo);
+        
+        jScrollPane2 = new javax.swing.JScrollPane();
+        henkilotable = new javax.swing.JTable();
+        jScrollPane2.setViewportView(henkilotable);
+        
+        henkilolista = new Henkilolista();
+        henkilomalli = new Henkilomalli(henkilolista);
+        henkilotable.setModel(henkilomalli);
+        
+        panel2.add(jScrollPane2,BorderLayout.CENTER);
+        panel2.add(paneeli2,BorderLayout.SOUTH);
+        pack();
+        
+        // tapahtuman käsitttelijät Henkilön lisäykselle, järjestämiselle ja poistamiselle, TODO muokkaus
+        lisaahenkilo.addActionListener(new ActionListener(){
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                //henkilomalli.lisaa();              
+                LisaaHenkiloJFrame lhJFrame = new LisaaHenkiloJFrame();
+                lhJFrame.setVisible(true);
+            }
+        
+        });
+        jarjestahenkilot.addActionListener(new ActionListener(){
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                henkilomalli.jarjesta();
+            }
+        
+        });
+        poistahenkilo.addActionListener(new ActionListener(){
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                int valittuRivi = henkilotable.getSelectedRow();
+                henkilomalli.poistaRivi(valittuRivi);
+            }
+        
+        });
     }
     
     public final void teePanel3() {
@@ -128,7 +190,7 @@ public class ElokuvarekisteriUI extends JFrame {
         panel3.setLayout(new BorderLayout());
         JPanel sisalto = new JPanel();
         sisalto.setLayout(new FlowLayout(FlowLayout.LEFT));     
-        JLabel otsikko = new JLabel("Valitse suosikkikielesi:");
+        JLabel otsikko = new JLabel("Mitä elokuvissa menee nyt, TODO");
         
         sisalto.add(otsikko);
           

@@ -119,7 +119,7 @@ class Elokuvalista implements Serializable {
     }
     // lisää uuden elokuvan
     public void lisaaUusi() {
-        elokuvat.add(new Elokuva("Elokuvannimi", "Ohjaaja", 0,0,"Lajityyppi"));
+        elokuvat.add(new Elokuva("Elokuvannimi", "Ohjaaja", 0, 0, "Lajityyppi"));
         tallenna();
     
     }

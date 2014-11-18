@@ -5,11 +5,13 @@
  */
 package fi.jamk.Elokuvarekisteri;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Asmo
  */
-public class Henkilo {
+public class Henkilo implements Serializable {
     private int id;
     private String etunimi;
     private String sukunimi;
