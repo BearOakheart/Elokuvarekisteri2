@@ -71,6 +71,11 @@ public class LisaaHenkiloJFrame extends javax.swing.JFrame {
         jLabel6.setText("Lisää/Muokkaa henkilö");
 
         valmisBtn.setText("Valmis");
+        valmisBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                valmisBtnActionPerformed(evt);
+            }
+        });
 
         peruutaBtn.setText("Peruuta");
         peruutaBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +162,26 @@ public class LisaaHenkiloJFrame extends javax.swing.JFrame {
     private void peruutaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_peruutaBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_peruutaBtnActionPerformed
+
+    private void valmisBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valmisBtnActionPerformed
+        // TODO add your handling code here:
+        /*Henkilo h = new Henkilo(
+                EtunimiTextField.getText(),
+                SukunimiTextField.getText(),
+        );*/
+        Henkilo h = new Henkilo(1, 
+                EtunimiTextField.getText(), 
+                SukunimiTextField.getText(), 
+                Integer.parseInt(SyntymavuosiTextField.getText()), 
+                KotimaaTextField.getText(), 
+                RooliComboBox.getSelectedItem().toString()); 
+       
+      System.out.println(EtunimiTextField.getText());
+      System.out.println(SukunimiTextField.getText());
+      System.out.println(Integer.parseInt(SyntymavuosiTextField.getText()));
+      System.out.println(KotimaaTextField.getText());
+      System.out.println(RooliComboBox.getSelectedItem().toString());
+    }//GEN-LAST:event_valmisBtnActionPerformed
 
     /**
      * @param args the command line arguments

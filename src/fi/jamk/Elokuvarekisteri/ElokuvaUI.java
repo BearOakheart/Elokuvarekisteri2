@@ -74,7 +74,9 @@ public class ElokuvaUI extends JFrame {
         lisaahenkilo.addActionListener(new ActionListener(){
         @Override
             public void actionPerformed(ActionEvent e) {
-                henkilomalli.lisaa();
+                //henkilomalli.lisaa();              
+                LisaaHenkiloJFrame lhJFrame = new LisaaHenkiloJFrame();
+                lhJFrame.setVisible(true);
             }
         
         });
