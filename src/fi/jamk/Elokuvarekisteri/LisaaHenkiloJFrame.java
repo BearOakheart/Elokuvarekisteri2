@@ -175,12 +175,8 @@ public class LisaaHenkiloJFrame extends javax.swing.JFrame {
                 Integer.parseInt(SyntymavuosiTextField.getText()), 
                 KotimaaTextField.getText(), 
                 RooliComboBox.getSelectedItem().toString()); 
-       
-      System.out.println(EtunimiTextField.getText());
-      System.out.println(SukunimiTextField.getText());
-      System.out.println(Integer.parseInt(SyntymavuosiTextField.getText()));
-      System.out.println(KotimaaTextField.getText());
-      System.out.println(RooliComboBox.getSelectedItem().toString());
+        
+ 
     }//GEN-LAST:event_valmisBtnActionPerformed
 
     /**
