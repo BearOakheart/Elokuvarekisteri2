@@ -6,9 +6,12 @@
 package fi.jamk.Elokuvarekisteri;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.xml.transform.TransformerException;
 
 /**
  *
@@ -38,6 +43,8 @@ public class ElokuvarekisteriUI extends JFrame {
     
     private JScrollPane jScrollPane;
     private JScrollPane jScrollPane2;
+    
+    private javax.swing.JTextField HakuTextField;
     
     public ElokuvarekisteriUI() {
         super("Elokuvarekisteri");
@@ -202,20 +209,46 @@ public class ElokuvarekisteriUI extends JFrame {
     public final void teePanel4() {
         panel4 = new JPanel();
         panel4.setLayout(new BorderLayout());
+        JPanel header = new JPanel();
         JPanel sisalto = new JPanel();
+        
+        JButton haeNappi = new JButton("Hae OMDB:stä");
+        HakuTextField = new JTextField();
+        JTextField haku = new JTextField();
+      
+        haku.setPreferredSize(new Dimension(200,24));
         sisalto.setLayout(new FlowLayout(FlowLayout.LEFT));     
         JLabel otsikko = new JLabel("Hae elokuvaa open movie databasesta, TODO");
         
-        sisalto.add(otsikko);
-          
-        panel4.add(sisalto, BorderLayout.NORTH);
+        header.add(otsikko, BorderLayout.NORTH);
         
-        JScrollPane js = new JScrollPane();
+        sisalto.add(haku);
+        sisalto.add(haeNappi);
         
-        panel4.add(js, BorderLayout.CENTER);
+        panel4.add(header, BorderLayout.NORTH);
+        panel4.add(sisalto, FlowLayout.LEFT);
         
+        haeNappi.addActionListener(new ActionListener(){
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                //henkilomalli.lisaa();              
+            XmlReader reader = new XmlReader();
+            
+                try {
+                    
+                    //String movieName = "the Shawshank Redemption";
+                    String movieName = haku.getText();
+                    System.out.println(haku.getText());
+                   
+                    movieName = movieName.replaceAll("\\s+","+");
+                    reader.getMovieXml(movieName);
+                } catch (TransformerException ex) {
+                    Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        
+    });
     }
-    
     public static void main( String args[] ) {
         new ElokuvarekisteriUI().setVisible(true);
     }
