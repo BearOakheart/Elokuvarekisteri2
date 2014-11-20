@@ -58,8 +58,9 @@ public class XmlReader {
             System.out.println(data.getAttribute("title"));
             System.out.println(data.getAttribute("director"));
             System.out.println(data.getAttribute("actors"));
-            System.out.println(data.getAttribute("gendre"));
+            System.out.println(data.getAttribute("genre"));
             System.out.println(data.getAttribute("year"));
+            System.out.println(data.getAttribute("runtime"));
             System.out.println(data.getAttribute("plot"));
 
         } catch (Exception e) {
