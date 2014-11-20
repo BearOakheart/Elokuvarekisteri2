@@ -26,6 +26,7 @@ public class ElokuvarekisteriUI extends JFrame {
     private JPanel panel1;
     private JPanel panel2;
     private JPanel panel3;
+    private JPanel panel4;
     
     private Elokuvalista elokuvalista;
     private Elokuvamalli elokuvamalli;
@@ -50,6 +51,7 @@ public class ElokuvarekisteriUI extends JFrame {
         teePanel1();
         teePanel2();
         teePanel3();
+        teePanel4();
         
         // tehdään JTabbedPane
         tabbedPane = new JTabbedPane();
@@ -59,6 +61,8 @@ public class ElokuvarekisteriUI extends JFrame {
         tabbedPane.addTab("Henkilöt",panel2);
         // lisätään panel3 JTabbedPaneen       
         tabbedPane.addTab("Teattereissa",panel3);
+        
+        tabbedPane.addTab("Hae Elokuvaa",panel4);
         
         // lisätään JTabbedPane sovellukseen 
         topPanel.add( tabbedPane, BorderLayout.CENTER );
@@ -192,6 +196,23 @@ public class ElokuvarekisteriUI extends JFrame {
         JScrollPane js = new JScrollPane();
         
         panel3.add(js, BorderLayout.CENTER);
+        
+    }
+    
+    public final void teePanel4() {
+        panel4 = new JPanel();
+        panel4.setLayout(new BorderLayout());
+        JPanel sisalto = new JPanel();
+        sisalto.setLayout(new FlowLayout(FlowLayout.LEFT));     
+        JLabel otsikko = new JLabel("Hae elokuvaa open movie databasesta, TODO");
+        
+        sisalto.add(otsikko);
+          
+        panel4.add(sisalto, BorderLayout.NORTH);
+        
+        JScrollPane js = new JScrollPane();
+        
+        panel4.add(js, BorderLayout.CENTER);
         
     }
     
