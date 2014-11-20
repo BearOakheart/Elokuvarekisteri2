@@ -119,8 +119,8 @@ class Henkilolista implements Serializable {
         return henkilot;
     }
     // lisää uuden henkilön
-    public void lisaaUusi() {
-        henkilot.add(new Henkilo(01, "Etunimi", "Sukunimi", 0, "Maa", "Rooli"));
+    public void lisaaUusi(Henkilo h) {
+        henkilot.add(h);
         tallenna();
     
     }

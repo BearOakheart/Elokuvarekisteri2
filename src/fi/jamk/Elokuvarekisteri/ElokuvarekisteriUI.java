@@ -9,21 +9,13 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
-import java.net.URLConnection;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 /**
  *
@@ -137,13 +129,13 @@ public class ElokuvarekisteriUI extends JFrame {
         panel2.setLayout(new BorderLayout());
         
         JButton lisaahenkilo = new JButton("Lisää henkilö");
-        JButton jarjestahenkilot = new JButton("Järjestä syntymävuoden mukaan");
+        JButton muokkaa = new JButton("Muokkaa");
         JButton poistahenkilo = new JButton("Poista valittu");
         
         JPanel paneeli2 = new JPanel();
         
         paneeli2.add(lisaahenkilo);
-        paneeli2.add(jarjestahenkilot);
+        paneeli2.add(muokkaa);
         paneeli2.add(poistahenkilo);
         
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -168,10 +160,11 @@ public class ElokuvarekisteriUI extends JFrame {
             }
         
         });
-        jarjestahenkilot.addActionListener(new ActionListener(){
+        muokkaa.addActionListener(new ActionListener(){
         @Override
             public void actionPerformed(ActionEvent e) {
-                henkilomalli.jarjesta();
+                MuokkaaHenkiloJFrame muokkaa = new MuokkaaHenkiloJFrame(henkilotable.getSelectedRow());
+                muokkaa.setVisible(true);
             }
         
         });

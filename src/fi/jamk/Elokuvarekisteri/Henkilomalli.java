@@ -5,6 +5,7 @@
  */
 package fi.jamk.Elokuvarekisteri;
 
+import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -17,7 +18,7 @@ public class Henkilomalli extends AbstractTableModel {
     private Class<?>[] tyypit = new Class[]{Integer.class, String.class, String.class, Integer.class, String.class, String.class};
     
     public Henkilomalli() {
-        this.henkilolista = null;
+        this.henkilolista = new Henkilolista();
     }
     
     public Henkilomalli(Henkilolista henkilolista){
@@ -29,11 +30,24 @@ public class Henkilomalli extends AbstractTableModel {
     public String getColumnName(int sarakeIndeksi) {
         return sarakeNimet[sarakeIndeksi];
     }
-    @Override
+   @Override
     public Class<?> getColumnClass(int sarakeIndeksi) {
         return tyypit[sarakeIndeksi];
     }
     
+    public Integer getLastId() {
+        ArrayList<Henkilo> henkilot = this.henkilolista.palauta();
+        int koko = henkilot.size();
+        Henkilo henkilo = henkilot.get(koko-1);
+        return henkilo.getId();       
+    }
+    
+    public Henkilo getHenkiloAt(int id){
+        ArrayList<Henkilo> henkilot = this.henkilolista.palauta();
+        Henkilo henkilo = henkilot.get(id);
+        return henkilo;  
+
+    }
     @Override
     public Object getValueAt(int rivi, int sarake) {
         if (rivi < 0 || rivi >= henkilolista.palauta().size()) return null;
@@ -80,8 +94,8 @@ public class Henkilomalli extends AbstractTableModel {
         }
     }
     
-    public void lisaa() {
-        henkilolista.lisaaUusi();
+    public void lisaa(Henkilo h) {
+        henkilolista.lisaaUusi(h);
         this.fireTableDataChanged();
     }
     

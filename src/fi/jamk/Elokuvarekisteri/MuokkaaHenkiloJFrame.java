@@ -9,13 +9,34 @@ package fi.jamk.Elokuvarekisteri;
  *
  * @author Mikko2
  */
-public class LisaaHenkiloJFrame extends javax.swing.JFrame {
+public class MuokkaaHenkiloJFrame extends javax.swing.JFrame {
     private Henkilomalli henkilomalli = new Henkilomalli();
+    private int muokattavaId;
+    //private Henkilo henkilo = new Henkilo();
     /**
      * Creates new form LisaaHenkiloJFrame
      */
-    public LisaaHenkiloJFrame() {
+    public MuokkaaHenkiloJFrame() {
+        
+    }
+    public MuokkaaHenkiloJFrame(int id) {
+        muokattavaId = id;
         initComponents();
+       
+        
+        Henkilo henkilo = this.henkilomalli.getHenkiloAt(id);
+        
+        EtunimiTextField.setText(henkilo.getEtunimi());
+        SukunimiTextField.setText(henkilo.getSukunimi());
+        SyntymavuosiTextField.setText(Integer.toString(henkilo.getSyntymavuosi()));
+        KotimaaTextField.setText(henkilo.getMaa());
+        int rooli;
+        if(henkilo.getRooli().equals("nayttelija")){
+            rooli = 0;
+        } else {
+            rooli = 1;
+        }
+        RooliComboBox.setSelectedIndex(rooli);
     }
 
     /**
@@ -164,16 +185,12 @@ public class LisaaHenkiloJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_peruutaBtnActionPerformed
 
     private void valmisBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valmisBtnActionPerformed
-        // TODO add your handling code here:
-       
-        Henkilo h = new Henkilo(henkilomalli.getLastId()+1, 
-                EtunimiTextField.getText(), 
-                SukunimiTextField.getText(), 
-                Integer.parseInt(SyntymavuosiTextField.getText()), 
-                KotimaaTextField.getText(), 
-                RooliComboBox.getSelectedItem().toString()); 
-
-        henkilomalli.lisaa(h);
+        Henkilo henkilo = this.henkilomalli.getHenkiloAt(muokattavaId);
+        henkilomalli.setValueAt(EtunimiTextField.getText(), henkilo.getId(), 1);
+        henkilomalli.setValueAt(SukunimiTextField.getText(), henkilo.getId(), 2);
+        henkilomalli.setValueAt(Integer.parseInt(SyntymavuosiTextField.getText()), henkilo.getId(), 3);
+        henkilomalli.setValueAt(KotimaaTextField.getText(), henkilo.getId(), 4);
+        henkilomalli.setValueAt(RooliComboBox.getSelectedItem().toString(), henkilo.getId(), 5);
     }//GEN-LAST:event_valmisBtnActionPerformed
 
     /**
@@ -193,20 +210,21 @@ public class LisaaHenkiloJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LisaaHenkiloJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LisaaHenkiloJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LisaaHenkiloJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LisaaHenkiloJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LisaaHenkiloJFrame().setVisible(true);
+                new MuokkaaHenkiloJFrame().setVisible(true);
             }
         });
     }
