@@ -213,14 +213,6 @@ public class MuokkaaHenkiloJFrame extends javax.swing.JFrame {
         henkilomalli.setValueAt(KotimaaTextField.getText(), henkilo.getId(), 4);
         henkilomalli.setValueAt(RooliComboBox.getSelectedItem().toString(), henkilo.getId(), 5);
         
-        XmlReader reader = new XmlReader();
-        try {
-            String movieName = "the Shawshank Redemption";
-            movieName = movieName.replaceAll("\\s+","+");
-            reader.getMovieXml(movieName);
-        } catch (TransformerException ex) {
-            Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         
     }//GEN-LAST:event_valmisBtnActionPerformed

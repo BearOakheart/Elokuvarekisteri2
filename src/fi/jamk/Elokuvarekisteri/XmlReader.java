@@ -55,6 +55,7 @@ public class XmlReader {
             NodeList nodeList = doc.getElementsByTagName("movie");
 
             Element data = (Element) nodeList.item(0);
+            System.out.println(data.getAttribute("title"));
             System.out.println(data.getAttribute("director"));
             System.out.println(data.getAttribute("actors"));
             System.out.println(data.getAttribute("gendre"));
