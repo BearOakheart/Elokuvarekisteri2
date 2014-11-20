@@ -5,6 +5,27 @@
  */
 package fi.jamk.Elokuvarekisteri;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
+
 /**
  *
  * @author Mikko2
@@ -191,6 +212,17 @@ public class MuokkaaHenkiloJFrame extends javax.swing.JFrame {
         henkilomalli.setValueAt(Integer.parseInt(SyntymavuosiTextField.getText()), henkilo.getId(), 3);
         henkilomalli.setValueAt(KotimaaTextField.getText(), henkilo.getId(), 4);
         henkilomalli.setValueAt(RooliComboBox.getSelectedItem().toString(), henkilo.getId(), 5);
+        
+        XmlReader reader = new XmlReader();
+        try {
+            String movieName = "the Shawshank Redemption";
+            movieName = movieName.replaceAll("\\s+","+");
+            reader.getMovieXml(movieName);
+        } catch (TransformerException ex) {
+            Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
     }//GEN-LAST:event_valmisBtnActionPerformed
 
     /**
