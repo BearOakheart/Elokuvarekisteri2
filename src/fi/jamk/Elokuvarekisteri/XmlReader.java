@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.transform.Transformer;
@@ -35,9 +36,9 @@ import javax.xml.transform.stream.StreamResult;
  * @author Mikko2
  */
 public class XmlReader {
+    private ArrayList<String> elokuvantiedot = new ArrayList<String>();
 
     @SuppressWarnings("UseSpecificCatch")
-
     public void readXMLfile() {
 
         try {
@@ -62,12 +63,23 @@ public class XmlReader {
             System.out.println(data.getAttribute("year"));
             System.out.println(data.getAttribute("runtime"));
             System.out.println(data.getAttribute("plot"));
-
+            
+           elokuvantiedot.add(data.getAttribute("title"));
+           elokuvantiedot.add(data.getAttribute("director"));
+           elokuvantiedot.add(data.getAttribute("actors"));
+           elokuvantiedot.add(data.getAttribute("genre"));
+           elokuvantiedot.add(data.getAttribute("year"));
+           elokuvantiedot.add(data.getAttribute("runtime"));
+           elokuvantiedot.add(data.getAttribute("plot"));
+           
+            
+            
         } catch (Exception e) {
         }
+        
     }
     
-    public void getMovieXml(String movieName) throws TransformerConfigurationException, TransformerException{
+    public ArrayList<String> getMovieXml(String movieName) throws TransformerConfigurationException, TransformerException{
                 URL url;
         try {
             url = new URL("http://www.omdbapi.com/?t="+movieName+"&y=&plot=short&r=xml");
@@ -81,6 +93,8 @@ public class XmlReader {
 
             // that’s the default xform; use a stylesheet to get a real one
             xform.transform(new DOMSource(doc), new StreamResult(new File(System.getProperty("user.dir")+"/temp_movie.xml")));
+            
+           
             
             this.readXMLfile();
 
@@ -97,6 +111,7 @@ public class XmlReader {
         } catch (TransformerException ex) {
             Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return elokuvantiedot;
     }
 }
 

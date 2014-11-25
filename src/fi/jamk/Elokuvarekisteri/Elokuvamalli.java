@@ -12,9 +12,9 @@ import javax.swing.table.AbstractTableModel;
  * @author Asmo
  */
 class Elokuvamalli extends AbstractTableModel {
-    private final String[] sarakeNimet = new String[]{"Nimi", "Ohjaaja", "Julkaisuvuosi", "Pituus (min)", "Lajityyppi"};
+    private final String[] sarakeNimet = new String[]{"Nimi", "Ohjaaja", "Näyttelijät", "Lajityyppi", "Julkaisuvuosi", "Pituus (min)", "Juoni"};
     private Elokuvalista elokuvalista;
-    private Class<?>[] tyypit = new Class[]{String.class, String.class, Integer.class, Integer.class, String.class};
+    private Class<?>[] tyypit = new Class[]{String.class, String.class, String.class, String.class, Integer.class, Integer.class, String.class};
     
     public Elokuvamalli() {
         this.elokuvalista = null;
@@ -39,9 +39,11 @@ class Elokuvamalli extends AbstractTableModel {
         switch (sarake) {
             case 0:  return elokuva.getNimi();
             case 1:  return elokuva.getOhjaaja();
-            case 2:  return elokuva.getJulkaisuvuosi();
-            case 3:  return elokuva.getPituus();
-            case 4:  return elokuva.getLajityyppi();
+            case 2:  return elokuva.getNayttelijat();
+            case 3:  return elokuva.getLajityyppi();
+            case 4:  return elokuva.getJulkaisuvuosi();
+            case 5:  return elokuva.getPituus();
+            case 6:  return elokuva.getJuoni();    
             default: return null;
         }
     }
@@ -80,16 +82,15 @@ class Elokuvamalli extends AbstractTableModel {
         }
     }
     
-    public void lisaa() {
-        elokuvalista.lisaaUusi();
+    public void lisaaDummy() {
+        elokuvalista.dummyLisaaUusi();
         this.fireTableDataChanged();
     }
     
-    public void jarjesta() {
-        elokuvalista.jarjesta();
-        this.fireTableDataChanged();
+    public void lisaa(Elokuva e){
+        elokuvalista.lisaaUusi(e);
     }
-        
+    
     public void poistaRivi(int rivi) {
         if (rivi >= 0) {
             elokuvalista.poista(rivi);

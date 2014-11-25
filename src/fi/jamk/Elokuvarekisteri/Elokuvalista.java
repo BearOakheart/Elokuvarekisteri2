@@ -35,7 +35,7 @@ class Elokuvalista implements Serializable {
     File el = new File(elokuvanTiedot);
     
     if (!el.exists()) {
-        elokuvat.add(new Elokuva("Esimerkki elokuva", "Ohjannut Taavetti", 1999, 130, "Action"));
+        elokuvat.add(new Elokuva("Esimerkki elokuva", "Ohjannut Taavetti", "Nayttelijat", "Genre", "1999", "130", "JUONINININI"));
         tallenna();
     }
     else {
@@ -117,47 +117,33 @@ class Elokuvalista implements Serializable {
     public ArrayList<Elokuva> palauta() {
         return elokuvat;
     }
-    // lisää uuden elokuvan
-    public void lisaaUusi() {
-        elokuvat.add(new Elokuva("Elokuvannimi", "Ohjaaja", 0, 0, "Lajityyppi"));
-        tallenna();
-    
+    // lisää uuden dummy elokuvan
+    public void dummyLisaaUusi() {
+        elokuvat.add(new Elokuva("Esimerkki elokuva", "Ohjannut Taavetti", "Nayttelijat", "Genre", "1990", "130 min", "JUONINININI"));
+        tallenna(); 
     }
+    
+    public void lisaaUusi(Elokuva e) {
+        elokuvat.add(e);
+        tallenna(); 
+    }
+        
     // poistaa elokuvan rivilt'
     public void poista (int rivi) {
         elokuvat.remove(rivi);
         tallenna();
     
     }
-    // elokuvien jarjestaminen
-    public void jarjesta() {
-        Collections.sort(elokuvat, new JarjestaElokuvat());
-        System.out.println("Elokuvalista jarjestetty julkaisuvuoden mukaan");
-        tallenna();
-    }
-    
- 
     
     public void paivita(Object uusi, int rivi, int sarake) {
         Elokuva elokuva = elokuvat.get(rivi);
         if (sarake == 0) elokuva.setNimi((String) uusi);
         else if (sarake == 1) elokuva.setOhjaaja((String) uusi);
-        else if (sarake == 2) elokuva.setJulkaisuvuosi(((Integer) uusi).intValue());
-        else if (sarake == 3) elokuva.setPituus(((Integer) uusi).intValue());
+        else if (sarake == 2) elokuva.setJulkaisuvuosi(((String) uusi));
+        else if (sarake == 3) elokuva.setPituus(((String) uusi));
         
         elokuvat.remove(rivi);
         elokuvat.add(rivi, elokuva);
         tallenna();
-    }
-    
-     class JarjestaElokuvat implements Comparator<Elokuva>
-    {
-         @Override
-         public int compare (Elokuva e1, Elokuva e2)
-         {
-             if (e1.getJulkaisuvuosi() > e2.getJulkaisuvuosi()) return -1;
-             if (e2.getJulkaisuvuosi() < e1.getJulkaisuvuosi()) return 1;
-             return 0;
-         }
     }
 }

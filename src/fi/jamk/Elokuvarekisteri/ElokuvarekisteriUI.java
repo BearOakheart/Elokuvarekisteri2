@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -19,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.xml.transform.TransformerException;
 
@@ -44,7 +46,7 @@ public class ElokuvarekisteriUI extends JFrame {
     private JScrollPane jScrollPane;
     private JScrollPane jScrollPane2;
     
-    private javax.swing.JTextField HakuTextField;
+    private ArrayList<String> elokuvantiedot = new ArrayList<String>();
     
     public ElokuvarekisteriUI() {
         super("Elokuvarekisteri");
@@ -111,17 +113,10 @@ public class ElokuvarekisteriUI extends JFrame {
         lisaa.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                elokuvamalli.lisaa();
+                elokuvamalli.lisaaDummy();
             
             }
         
-        });
-        
-        jarjesta.addActionListener(new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            elokuvamalli.jarjesta();
-        }
         });
         
         poista.addActionListener(new ActionListener(){
@@ -210,12 +205,15 @@ public class ElokuvarekisteriUI extends JFrame {
         panel4 = new JPanel();
         panel4.setLayout(new BorderLayout());
         JPanel header = new JPanel();
-        JPanel sisalto = new JPanel();
+        JPanel sisalto = new JPanel();        
         
         JButton haeNappi = new JButton("Hae OMDB:stä");
-        HakuTextField = new JTextField();
+        JButton lisaaNappi = new JButton("Lisää rekisteriin");
+        //HakuTextField = new JTextField();
         JTextField haku = new JTextField();
-      
+        JTextField testikentta = new JTextField();
+        
+        testikentta.setPreferredSize(new Dimension(200,24));
         haku.setPreferredSize(new Dimension(200,24));
         sisalto.setLayout(new FlowLayout(FlowLayout.LEFT));     
         JLabel otsikko = new JLabel("Hae elokuvaa open movie databasesta, TODO");
@@ -224,30 +222,53 @@ public class ElokuvarekisteriUI extends JFrame {
         
         sisalto.add(haku);
         sisalto.add(haeNappi);
+        sisalto.add(lisaaNappi);
+        sisalto.add(testikentta);
+        
         
         panel4.add(header, BorderLayout.NORTH);
         panel4.add(sisalto, FlowLayout.LEFT);
+       
         
-        haeNappi.addActionListener(new ActionListener(){
-        @Override
+        haeNappi.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 //henkilomalli.lisaa();              
-            XmlReader reader = new XmlReader();
-            
+                XmlReader reader = new XmlReader();
+
                 try {
-                    
+
                     //String movieName = "the Shawshank Redemption";
                     String movieName = haku.getText();
                     System.out.println(haku.getText());
-                   
-                    movieName = movieName.replaceAll("\\s+","+");
-                    reader.getMovieXml(movieName);
+                    
+
+                    movieName = movieName.replaceAll("\\s+", "+");
+                    elokuvantiedot = reader.getMovieXml(movieName);
+
+                    testikentta.setText(elokuvantiedot.get(0));
+
                 } catch (TransformerException ex) {
                     Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+
+        });
         
-    });
+        lisaaNappi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Elokuva elokuva = new Elokuva(elokuvantiedot.get(0),
+                                                elokuvantiedot.get(1), 
+                                                elokuvantiedot.get(2), 
+                                                elokuvantiedot.get(3), 
+                                                elokuvantiedot.get(4), 
+                                                elokuvantiedot.get(5),
+                                                elokuvantiedot.get(6));
+                elokuvamalli.lisaa(elokuva);
+            }
+
+        });
     }
     public static void main( String args[] ) {
         new ElokuvarekisteriUI().setVisible(true);

@@ -14,19 +14,24 @@ import java.io.Serializable;
 public class Elokuva implements Serializable {
         private String nimi;
         private String ohjaaja;
-        private int julkaisuvuosi;
-        private int pituus;
+        private String nayttelijat;
         private String lajityyppi;
-        
-    public Elokuva(String nimi, String ohjaaja, int julkaisuvuosi, int pituus, String lajityyppi)
-    {
+        private String julkaisuvuosi;
+        private String pituus;
+        private String juoni;
+
+
+    public Elokuva(String nimi, String ohjaaja, String nayttelijat, String lajityyppi, String julkaisuvuosi, String pituus, String juoni) {
         this.nimi = nimi;
         this.ohjaaja = ohjaaja;
+        this.nayttelijat = nayttelijat;
+        this.lajityyppi = lajityyppi;
         this.julkaisuvuosi = julkaisuvuosi;
         this.pituus = pituus;
-        this.lajityyppi = lajityyppi;
+        this.juoni = juoni;
     }
-
+    
+        
     public String getLajityyppi() {
         return lajityyppi;
     }
@@ -51,22 +56,36 @@ public class Elokuva implements Serializable {
         this.ohjaaja = ohjaaja;
     }
 
-    public int getJulkaisuvuosi() {
+    public String getJulkaisuvuosi() {
         return julkaisuvuosi;
     }
 
-    public void setJulkaisuvuosi(int julkaisuvuosi) {
+    public void setJulkaisuvuosi(String julkaisuvuosi) {
         this.julkaisuvuosi = julkaisuvuosi;
     }
 
-    public int getPituus() {
+    public String getPituus() {
         return pituus;
     }
 
-    public void setPituus(int pituus) {
+    public void setPituus(String pituus) {
         this.pituus = pituus;
     }
-  
+    public String getNayttelijat() {
+        return nayttelijat;
+    }
+
+    public void setNayttelijat(String nayttelijat) {
+        this.nayttelijat = nayttelijat;
+    }
+
+    public String getJuoni() {
+        return juoni;
+    }
+
+    public void setJuoni(String juoni) {
+        this.juoni = juoni;
+    }
     @Override
     public String toString() {
         return "[" + nimi + ", " + ohjaaja + ", " + julkaisuvuosi + ", " + pituus + " min ," + lajityyppi + "]";

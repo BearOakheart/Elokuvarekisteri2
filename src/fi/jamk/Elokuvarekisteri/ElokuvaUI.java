@@ -100,17 +100,10 @@ public class ElokuvaUI extends JFrame {
         lisaa.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                elokuvamalli.lisaa();
+                elokuvamalli.lisaaDummy();
             
             }
         
-        });
-        
-        jarjesta.addActionListener(new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            elokuvamalli.jarjesta();
-        }
         });
         
         poista.addActionListener(new ActionListener(){
