@@ -63,6 +63,7 @@ public class XmlReader {
             System.out.println(data.getAttribute("year"));
             System.out.println(data.getAttribute("runtime"));
             System.out.println(data.getAttribute("plot"));
+            System.out.println(data.getAttribute("poster"));
             
            elokuvantiedot.add(data.getAttribute("title"));
            elokuvantiedot.add(data.getAttribute("director"));
@@ -71,6 +72,7 @@ public class XmlReader {
            elokuvantiedot.add(data.getAttribute("year"));
            elokuvantiedot.add(data.getAttribute("runtime"));
            elokuvantiedot.add(data.getAttribute("plot"));
+           elokuvantiedot.add(data.getAttribute("poster"));
            
             
             

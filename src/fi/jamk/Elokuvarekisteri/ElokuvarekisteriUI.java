@@ -8,13 +8,18 @@ package fi.jamk.Elokuvarekisteri;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,6 +46,8 @@ public class ElokuvarekisteriUI extends JFrame {
     private Elokuvamalli elokuvamalli;
     private Henkilolista henkilolista;
     private Henkilomalli henkilomalli;
+    
+    private Image image;
     
     private JTable elokuvatable;
     private JTable henkilotable;
@@ -73,7 +80,7 @@ public class ElokuvarekisteriUI extends JFrame {
         // lisätään panel3 JTabbedPaneen       
         tabbedPane.addTab("Teattereissa",panel3);
         
-        tabbedPane.addTab("Hae Elokuvaa",panel4);
+        tabbedPane.addTab("Hae elokuvaa OMDB:stä",panel4);
         
         // lisätään JTabbedPane sovellukseen 
         topPanel.add( tabbedPane, BorderLayout.CENTER );
@@ -221,13 +228,13 @@ public class ElokuvarekisteriUI extends JFrame {
         
         JTextField hakukentta = new JTextField();
         
-        JTextField nimikentta = new JTextField();
-        JTextField ohjaajakentta = new JTextField();
-        JTextField nayttelijatkentta = new JTextField();
-        JTextField lajityyppikentta = new JTextField();
-        JTextField vuosikentta = new JTextField();
-        JTextField pituuskentta = new JTextField();
-        JTextField juonikentta = new JTextField();
+        JLabel nimikentta = new JLabel();
+        JLabel ohjaajakentta = new JLabel();
+        JLabel nayttelijatkentta = new JLabel();
+        JLabel lajityyppikentta = new JLabel();
+        JLabel vuosikentta = new JLabel();
+        JLabel pituuskentta = new JLabel();
+        JLabel juonikentta = new JLabel();
         
         JLabel nimi = new JLabel("Elokuvan nimi:");
         JLabel ohjaaja = new JLabel("Ohjaaja:");
@@ -236,24 +243,15 @@ public class ElokuvarekisteriUI extends JFrame {
         JLabel vuosi = new JLabel("Vuosi:");
         JLabel pituus = new JLabel("Pituus:");
         JLabel juoni = new JLabel("Juoni:");
-        //hakukentta.setPreferredSize(new Dimension(200,24));
+       
         
-        nimikentta.setPreferredSize(new Dimension(200, 24));
-        ohjaajakentta.setPreferredSize(new Dimension(200, 24));
-        nayttelijatkentta.setPreferredSize(new Dimension(200, 24));
-        lajityyppikentta.setPreferredSize(new Dimension(200, 24));
-        vuosikentta.setPreferredSize(new Dimension(200, 24));
-        pituuskentta.setPreferredSize(new Dimension(200, 24));
-        juonikentta.setPreferredSize(new Dimension(200, 24));
-        //sisalto.setLayout(new FlowLayout(FlowLayout.LEFT));     
-       // JLabel otsikko = new JLabel("Hae elokuvaa open movie databasesta, TODO");
-        
-        //header.add(otsikko);
+       
+       
         header.add(hakukentta);
         header.add(haeNappi);
         header.add(Box.createHorizontalStrut(2));
         
-        
+        // vasemman paneelin lisäykset
         sisaltoVasen.add(nimi);
         sisaltoVasen.add(ohjaaja);
         sisaltoVasen.add(nayttelijat);
@@ -263,8 +261,9 @@ public class ElokuvarekisteriUI extends JFrame {
         sisaltoVasen.add(juoni);
         
         sisaltoVasen.add(lisaaNappi);
-        sisaltoVasen.add(Box.createVerticalStrut(10));
+        //sisaltoVasen.add(Box.createVerticalStrut(10));
         
+        // oiken paneelin lisäykset
         sisaltoOikea.add(nimikentta);
         sisaltoOikea.add(ohjaajakentta);
         sisaltoOikea.add(nayttelijatkentta);
@@ -272,11 +271,14 @@ public class ElokuvarekisteriUI extends JFrame {
         sisaltoOikea.add(vuosikentta);
         sisaltoOikea.add(pituuskentta);
         sisaltoOikea.add(juonikentta);
-        sisaltoOikea.add(Box.createVerticalStrut(10));
+       
+        //sisaltoOikea.add(Box.createVerticalStrut(10));
         
         panel4.add(header, BorderLayout.NORTH);
         panel4.add(sisaltoVasen, BorderLayout.WEST);
-        panel4.add(sisaltoOikea, BorderLayout.EAST);
+        panel4.add(sisaltoOikea, BorderLayout.CENTER);
+        
+     
         
         
         haeNappi.addActionListener(new ActionListener() {
@@ -286,13 +288,10 @@ public class ElokuvarekisteriUI extends JFrame {
                 XmlReader reader = new XmlReader();
 
                 try {
-
-                    //String movieName = "the Shawshank Redemption";
                     String movieName = hakukentta.getText();
-                    System.out.println(hakukentta.getText());
-                    
 
                     movieName = movieName.replaceAll("\\s+", "+");
+                    
                     elokuvantiedot = reader.getMovieXml(movieName);
 
                     nimikentta.setText(elokuvantiedot.get(0));
@@ -303,12 +302,27 @@ public class ElokuvarekisteriUI extends JFrame {
                     pituuskentta.setText(elokuvantiedot.get(5));
                     juonikentta.setText(elokuvantiedot.get(6));
                     
+                    
+                    
+                    image = null;
+                    try {
+
+                        URL url = new URL(elokuvantiedot.get(7));
+                        image = ImageIO.read(url);
+                        System.err.println("kuva ladattu");
+                    } catch (IOException ex) {
+                        Logger.getLogger(ElokuvarekisteriUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println("Kaytan kuvaa");
+                    JLabel kuva = new JLabel(new ImageIcon(image));
+                    sisaltoOikea.add(kuva);
                 } catch (TransformerException ex) {
                     Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
         });
+        
         
         lisaaNappi.addActionListener(new ActionListener() {
             @Override
