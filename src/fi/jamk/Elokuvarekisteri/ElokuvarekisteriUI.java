@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -205,30 +207,77 @@ public class ElokuvarekisteriUI extends JFrame {
         panel4 = new JPanel();
         panel4.setLayout(new BorderLayout());
         JPanel header = new JPanel();
-        JPanel sisalto = new JPanel();        
+        JPanel sisaltoVasen = new JPanel();
+        JPanel sisaltoOikea = new JPanel();
+        
+        // box layout
+        header.setLayout(new BoxLayout(header, BoxLayout.X_AXIS));
+        sisaltoVasen.setLayout(new BoxLayout(sisaltoVasen, BoxLayout.Y_AXIS));
+        sisaltoOikea.setLayout(new BoxLayout(sisaltoOikea, BoxLayout.Y_AXIS));
+        
         
         JButton haeNappi = new JButton("Hae OMDB:stä");
         JButton lisaaNappi = new JButton("Lisää rekisteriin");
-        //HakuTextField = new JTextField();
-        JTextField haku = new JTextField();
-        JTextField testikentta = new JTextField();
         
-        testikentta.setPreferredSize(new Dimension(200,24));
-        haku.setPreferredSize(new Dimension(200,24));
-        sisalto.setLayout(new FlowLayout(FlowLayout.LEFT));     
-        JLabel otsikko = new JLabel("Hae elokuvaa open movie databasesta, TODO");
+        JTextField hakukentta = new JTextField();
         
-        header.add(otsikko, BorderLayout.NORTH);
+        JTextField nimikentta = new JTextField();
+        JTextField ohjaajakentta = new JTextField();
+        JTextField nayttelijatkentta = new JTextField();
+        JTextField lajityyppikentta = new JTextField();
+        JTextField vuosikentta = new JTextField();
+        JTextField pituuskentta = new JTextField();
+        JTextField juonikentta = new JTextField();
         
-        sisalto.add(haku);
-        sisalto.add(haeNappi);
-        sisalto.add(lisaaNappi);
-        sisalto.add(testikentta);
+        JLabel nimi = new JLabel("Elokuvan nimi:");
+        JLabel ohjaaja = new JLabel("Ohjaaja:");
+        JLabel nayttelijat = new JLabel("Näyttelijät:");
+        JLabel lajityyppi = new JLabel("Lajityyppi:");
+        JLabel vuosi = new JLabel("Vuosi:");
+        JLabel pituus = new JLabel("Pituus:");
+        JLabel juoni = new JLabel("Juoni:");
+        //hakukentta.setPreferredSize(new Dimension(200,24));
         
+        nimikentta.setPreferredSize(new Dimension(200, 24));
+        ohjaajakentta.setPreferredSize(new Dimension(200, 24));
+        nayttelijatkentta.setPreferredSize(new Dimension(200, 24));
+        lajityyppikentta.setPreferredSize(new Dimension(200, 24));
+        vuosikentta.setPreferredSize(new Dimension(200, 24));
+        pituuskentta.setPreferredSize(new Dimension(200, 24));
+        juonikentta.setPreferredSize(new Dimension(200, 24));
+        //sisalto.setLayout(new FlowLayout(FlowLayout.LEFT));     
+       // JLabel otsikko = new JLabel("Hae elokuvaa open movie databasesta, TODO");
+        
+        //header.add(otsikko);
+        header.add(hakukentta);
+        header.add(haeNappi);
+        header.add(Box.createHorizontalStrut(2));
+        
+        
+        sisaltoVasen.add(nimi);
+        sisaltoVasen.add(ohjaaja);
+        sisaltoVasen.add(nayttelijat);
+        sisaltoVasen.add(lajityyppi);
+        sisaltoVasen.add(vuosi);
+        sisaltoVasen.add(pituus);
+        sisaltoVasen.add(juoni);
+        
+        sisaltoVasen.add(lisaaNappi);
+        sisaltoVasen.add(Box.createVerticalStrut(10));
+        
+        sisaltoOikea.add(nimikentta);
+        sisaltoOikea.add(ohjaajakentta);
+        sisaltoOikea.add(nayttelijatkentta);
+        sisaltoOikea.add(lajityyppikentta);
+        sisaltoOikea.add(vuosikentta);
+        sisaltoOikea.add(pituuskentta);
+        sisaltoOikea.add(juonikentta);
+        sisaltoOikea.add(Box.createVerticalStrut(10));
         
         panel4.add(header, BorderLayout.NORTH);
-        panel4.add(sisalto, FlowLayout.LEFT);
-       
+        panel4.add(sisaltoVasen, BorderLayout.WEST);
+        panel4.add(sisaltoOikea, BorderLayout.EAST);
+        
         
         haeNappi.addActionListener(new ActionListener() {
             @Override
@@ -239,15 +288,21 @@ public class ElokuvarekisteriUI extends JFrame {
                 try {
 
                     //String movieName = "the Shawshank Redemption";
-                    String movieName = haku.getText();
-                    System.out.println(haku.getText());
+                    String movieName = hakukentta.getText();
+                    System.out.println(hakukentta.getText());
                     
 
                     movieName = movieName.replaceAll("\\s+", "+");
                     elokuvantiedot = reader.getMovieXml(movieName);
 
-                    testikentta.setText(elokuvantiedot.get(0));
-
+                    nimikentta.setText(elokuvantiedot.get(0));
+                    ohjaajakentta.setText(elokuvantiedot.get(1));
+                    nayttelijatkentta.setText(elokuvantiedot.get(2));
+                    lajityyppikentta.setText(elokuvantiedot.get(3));
+                    vuosikentta.setText(elokuvantiedot.get(4));
+                    pituuskentta.setText(elokuvantiedot.get(5));
+                    juonikentta.setText(elokuvantiedot.get(6));
+                    
                 } catch (TransformerException ex) {
                     Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
