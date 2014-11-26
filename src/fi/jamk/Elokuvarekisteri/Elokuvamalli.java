@@ -17,7 +17,7 @@ class Elokuvamalli extends AbstractTableModel {
     private Class<?>[] tyypit = new Class[]{String.class, String.class, String.class, String.class, Integer.class, Integer.class, String.class};
     
     public Elokuvamalli() {
-        this.elokuvalista = null;
+        this.elokuvalista = new Elokuvalista();
     }
     
     public Elokuvamalli(Elokuvalista elokuvalista){

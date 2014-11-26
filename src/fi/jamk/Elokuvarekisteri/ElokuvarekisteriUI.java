@@ -122,7 +122,8 @@ public class ElokuvarekisteriUI extends JFrame {
         lisaa.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                elokuvamalli.lisaaDummy();
+                LisaaElokuvaJDialog LEDialog = new LisaaElokuvaJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled);
+                LEDialog.setVisible(true);
             
             }
         
@@ -170,8 +171,10 @@ public class ElokuvarekisteriUI extends JFrame {
         @Override
             public void actionPerformed(ActionEvent e) {
                 //henkilomalli.lisaa();              
-                LisaaHenkiloJFrame lhJFrame = new LisaaHenkiloJFrame();
-                lhJFrame.setVisible(true);
+               
+                
+                LisaaHenkiloJDialog LHdialog = new LisaaHenkiloJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled);
+                LHdialog.setVisible(true); 
             }
         
         });
