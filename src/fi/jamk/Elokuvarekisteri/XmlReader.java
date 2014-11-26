@@ -17,18 +17,25 @@ import org.xml.sax.SAXException;
 //---------------------------------------
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.text.html.HTML;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+//---
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 /**
 
 /**
@@ -37,7 +44,18 @@ import javax.xml.transform.stream.StreamResult;
  */
 public class XmlReader {
     private ArrayList<String> elokuvantiedot = new ArrayList<String>();
-
+    
+    private String kaupunki;
+    private String tieto;
+    
+    public void setKaupunki(String kaupunki){
+    this.kaupunki = kaupunki;
+    };
+    
+    public String getTieto(){
+    return tieto;
+    }
+    
     @SuppressWarnings("UseSpecificCatch")
     public void readXMLfile() {
 
@@ -114,6 +132,69 @@ public class XmlReader {
             Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return elokuvantiedot;
+    }
+         /*
+        public class Tietoa implements Serializable{
+        private String kaupunki;
+            public Tietoa(String Kaupunki){
+                    this.kaupunki = kaupunki;
+                }
+            
+            
+            
+            public String setKaupunki(String kaupunki){
+            return kaupunki;
+            }
+        
+        }
+ */
+    
+        public void readFinnKinoXML() {
+            
+            
+            
+           DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+	   Date date = new Date();
+           //kaupunki = "1002";
+           String url = "http://www.finnkino.fi/xml/Schedule/?area="+kaupunki+"&dt="+dateFormat.format(date);
+           
+           
+            try {
+                DocumentBuilderFactory dbf = 
+                    DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(url);
+                
+            doc.getDocumentElement().normalize();
+            
+            System.out.println ("Root element: " + 
+                        doc.getDocumentElement().getNodeName());
+            
+            NodeList items = doc.getElementsByTagName("Show");
+            for(int i = 0; i< items.getLength(); i++){
+            
+                Node n = items.item(i);
+                if(n.getNodeType() != Node.ELEMENT_NODE)
+                    continue;
+                Element e = (Element) n;
+                
+                NodeList titlelist  = e.getElementsByTagName("Theatre");
+                Element titleElem = (Element) titlelist.item(0);
+                
+                Node titleNode = titleElem.getChildNodes().item(0);
+                System.out.println(titleNode.getNodeValue());
+                
+                tieto = titleNode.getNodeValue();
+
+                
+            }
+            
+            
+                
+            } 
+            catch (Exception e) {}
+            
+            
     }
 }
 

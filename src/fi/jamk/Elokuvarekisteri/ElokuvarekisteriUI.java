@@ -21,6 +21,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -201,15 +202,102 @@ public class ElokuvarekisteriUI extends JFrame {
         panel3.setLayout(new BorderLayout());
         JPanel sisalto = new JPanel();
         sisalto.setLayout(new FlowLayout(FlowLayout.LEFT));     
-        JLabel otsikko = new JLabel("Mitä elokuvissa menee nyt, TODO");
+        JLabel otsikko = new JLabel("");
         
+        String[] kaupungit = {"Pääkaupunkiseutu",
+            "Espoo","Espoo: Omena",
+            "Espoo: Sello",
+            "Helsinki","Helsinki: Kinopalatsi",
+            "Helsinki: Maxim",
+            "Helsinki: Tennispalatsi",
+            "Jyväskylä","Kuopio",
+            "Lahti","Oulu",
+            "Pori","Tampere",
+            "Tampere: Cine Atlas","Tampere: Plevna",
+            "Turku","Vantaa"};
+      
+        JComboBox jcb = new JComboBox(kaupungit);
+
+        JButton testi = new JButton("testi");
+        JTextArea textArea = new JTextArea("hihi");
+        
+        sisalto.add(jcb);
+        sisalto.add(testi);
         sisalto.add(otsikko);
+        
+        
+        
           
         panel3.add(sisalto, BorderLayout.NORTH);
         
         JScrollPane js = new JScrollPane();
         
+        sisalto.add(textArea);
+        
         panel3.add(js, BorderLayout.CENTER);
+        
+        
+        
+        testi.addActionListener(new ActionListener(){
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                String valittu = jcb.getSelectedItem().toString();
+                System.out.println(valittu);
+                String kaupunki = "";
+                
+                switch(valittu) {
+                    case "Pääkaupunkiseutu": kaupunki = "1014";
+                        break;
+                    case "Espoo": kaupunki = "1012";
+                        break;            
+                    case "Espoo: Omena": kaupunki = "1039";
+                        break;                                
+                    case "Espoo: Sello": kaupunki = "1038";
+                        break;                                 
+                    case "Helsinki": kaupunki = "1002";
+                        break;                                 
+                    case "Helsinki: Kinopalatsi": kaupunki = "1031";
+                        break;                                 
+                    case "Helsinki: Maxim": kaupunki = "1032";
+                        break;                                 
+                    case "Helsinki: Tennispalatsi": kaupunki = "1033";
+                        break;                                 
+                    case "Jyväskylä": kaupunki = "1015";
+                        break;                                 
+                    case "Kuopio": kaupunki = "1016";
+                        break;                                     
+                    case "Lahti": kaupunki = "1017";
+                        break;                        
+                    case "Oulu": kaupunki = "1018";
+                        break;                        
+                    case "Pori": kaupunki = "1019";
+                        break;             
+                    case "Tampere": kaupunki = "1021";
+                        break;                        
+                    case "Tampere: Cine Atlas": kaupunki = "1034";
+                        break;                            
+                    case "Tampere: Plevna": kaupunki = "1035";
+                        break;                        
+                    case "Turku": kaupunki = "1022";
+                        break;
+                    case "Vantaa": kaupunki = "1013";
+                        break;      
+                }
+                
+                
+                XmlReader xmlreader = new XmlReader();
+                
+                xmlreader.setKaupunki(kaupunki);
+                
+                xmlreader.readFinnKinoXML();  
+                
+                textArea.append(xmlreader.getTieto());
+            }
+        
+        });
+        
+        
         
     }
     

@@ -40,6 +40,8 @@ public class LisaaHenkiloJFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         valmisBtn = new javax.swing.JButton();
         peruutaBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,6 +86,10 @@ public class LisaaHenkiloJFrame extends javax.swing.JFrame {
             }
         });
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,7 +119,10 @@ public class LisaaHenkiloJFrame extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(valmisBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(peruutaBtn)))
+                        .addComponent(peruutaBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -145,7 +154,9 @@ public class LisaaHenkiloJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valmisBtn)
                     .addComponent(peruutaBtn))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -165,7 +176,7 @@ public class LisaaHenkiloJFrame extends javax.swing.JFrame {
 
     private void valmisBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valmisBtnActionPerformed
         // TODO add your handling code here:
-       
+       /*
         Henkilo h = new Henkilo(henkilomalli.getLastId()+1, 
                 EtunimiTextField.getText(), 
                 SukunimiTextField.getText(), 
@@ -173,7 +184,10 @@ public class LisaaHenkiloJFrame extends javax.swing.JFrame {
                 KotimaaTextField.getText(), 
                 RooliComboBox.getSelectedItem().toString()); 
 
-        henkilomalli.lisaa(h);
+        henkilomalli.lisaa(h);*/
+        
+        
+        
     }//GEN-LAST:event_valmisBtnActionPerformed
 
     /**
@@ -223,6 +237,8 @@ public class LisaaHenkiloJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton peruutaBtn;
     private javax.swing.JButton valmisBtn;
     // End of variables declaration//GEN-END:variables
