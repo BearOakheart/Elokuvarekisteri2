@@ -457,7 +457,7 @@ public class ElokuvarekisteriUI extends JFrame {
                     // asettetaan kuva labeliin imageicon kuva1
                     kuva.setIcon(kuva1);
                 } catch (TransformerException ex) {
-                    Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MuokkaaHenkiloJDialog.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 

@@ -78,14 +78,7 @@ public class XmlReader {
             NodeList nodeList = doc.getElementsByTagName("movie");
 
             Element data = (Element) nodeList.item(0);
-            System.out.println(data.getAttribute("title"));
-            System.out.println(data.getAttribute("director"));
-            System.out.println(data.getAttribute("actors"));
-            System.out.println(data.getAttribute("genre"));
-            System.out.println(data.getAttribute("year"));
-            System.out.println(data.getAttribute("runtime"));
-            System.out.println(data.getAttribute("plot"));
-            System.out.println(data.getAttribute("poster"));
+            
             
            elokuvantiedot.add(data.getAttribute("title"));
            elokuvantiedot.add(data.getAttribute("director"));
@@ -123,17 +116,17 @@ public class XmlReader {
             this.readXMLfile();
 
         } catch (MalformedURLException ex) {
-            Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MuokkaaHenkiloJDialog.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
-            Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MuokkaaHenkiloJDialog.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MuokkaaHenkiloJDialog.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MuokkaaHenkiloJDialog.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerConfigurationException ex) {
-            Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MuokkaaHenkiloJDialog.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerException ex) {
-            Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MuokkaaHenkiloJDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
         return elokuvantiedot;
     }
