@@ -227,30 +227,30 @@ public class ElokuvarekisteriUI extends JFrame {
         
         JComboBox jcb = new JComboBox(kaupungit);
         
-        JButton testi = new JButton("testi");
+        JButton hae = new JButton("Hae");
         
         
         JScrollPane js = new JScrollPane();
         
         sisalto.add(jcb);
-        sisalto.add(testi);
+        sisalto.add(hae);
         sisalto.add(otsikko);
         
-       
+        
         
         panel3.add(sisalto, BorderLayout.NORTH);
         panel3.add(sisalto2, BorderLayout.CENTER);
-   
         
         
-        testi.addActionListener(new ActionListener(){
+        
+        hae.addActionListener(new ActionListener(){
         @Override
             public void actionPerformed(ActionEvent e) {
                 
                 String valittu = jcb.getSelectedItem().toString();
-                System.out.println(valittu);
-                String kaupunki = "";
                 
+                String kaupunki = "";
+                //Valitaan kaupunki mistä etsitään
                 switch(valittu) {
                     case "Pääkaupunkiseutu": kaupunki = "1014";
                         break;
@@ -295,13 +295,16 @@ public class ElokuvarekisteriUI extends JFrame {
                 
                 finnKinoElokuvat.clear();
                 
-                XmlReader xmlreader = new XmlReader();
                 
-                xmlreader.setKaupunki(kaupunki);
+                
+                
                 
                 //xmlreader.readFinnKinoXML();  
+                XmlReader reader= new XmlReader();
                 
-                finnKinoElokuvat = xmlreader.readFinnKinoXML();
+                reader.setKaupunki(kaupunki);
+                
+                finnKinoElokuvat = reader.readFinnKinoXML();
         
                 JList list = new JList(finnKinoElokuvat.toArray());
                 
@@ -310,6 +313,7 @@ public class ElokuvarekisteriUI extends JFrame {
                 scrollpane = new JScrollPane(list);
                 
                 sisalto2.add(scrollpane);
+                
                 
                 
             }

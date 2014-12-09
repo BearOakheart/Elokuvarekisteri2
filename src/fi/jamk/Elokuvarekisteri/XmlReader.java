@@ -178,6 +178,8 @@ public class XmlReader {
             NodeList items = doc.getElementsByTagName("Show");
             for(int i = 0; i< items.getLength(); i++){
             
+                //Hakee elokuvien tiedot kyseiseltä paikkakunnalta ja lisää ne arraylistiin finnKinoElokuvat
+                
                 Node n = items.item(i);
                 if(n.getNodeType() != Node.ELEMENT_NODE)
                     continue;
@@ -205,7 +207,7 @@ public class XmlReader {
                 
                 finnKinoElokuvat.add(i,titleNode.getNodeValue() +" - "+nayttoAika+" - "+titleNode2.getNodeValue()+" min"+" - "+titleNode3.getNodeValue());
                 //System.out.println(finnKinoElokuvat.get(i));
-               System.out.println(nayttoAika);
+               //System.out.println(nayttoAika);
                
                 
             }    
