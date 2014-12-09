@@ -23,7 +23,7 @@ public class Elokuva implements Serializable {
         private String kuvaUrl;
 
 
-    public Elokuva(int id,String nimi, String ohjaaja, String nayttelijat, String lajityyppi, String julkaisuvuosi, String pituus, String juoni, String kuvaUrl) {
+    public Elokuva(int id, String nimi, String ohjaaja, String nayttelijat, String lajityyppi, String julkaisuvuosi, String pituus, String juoni, String kuvaUrl) {
         this.id = id;
         this.nimi = nimi;
         this.ohjaaja = ohjaaja;

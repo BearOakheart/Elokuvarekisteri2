@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
 class Elokuvamalli extends AbstractTableModel {
     private final String[] sarakeNimet = new String[]{"Id","Nimi", "Ohjaaja", "Näyttelijät", "Lajityyppi", "Julkaisuvuosi", "Pituus (min)", "Juoni","Kuva URL"};
     private Elokuvalista elokuvalista;
-    private Class<?>[] tyypit = new Class[]{Integer.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, String.class, String.class};
+    private Class<?>[] tyypit = new Class[]{Integer.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class};
     
     public Elokuvamalli() {
         this.elokuvalista = new Elokuvalista();
