@@ -213,6 +213,7 @@ public class LisaaElokuvaJDialog extends javax.swing.JDialog {
         
         
         dispose();
+       
         
     }//GEN-LAST:event_valmisBtnActionPerformed
 

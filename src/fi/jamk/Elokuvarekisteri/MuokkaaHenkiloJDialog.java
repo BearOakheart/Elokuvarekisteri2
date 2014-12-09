@@ -18,7 +18,7 @@ public class MuokkaaHenkiloJDialog extends javax.swing.JDialog {
      */
     public MuokkaaHenkiloJDialog(ElokuvarekisteriUI parent, boolean modal, int id) {
         super(parent, modal);
-        muokattavaId = id;
+        muokattavaId = id-1;
         initComponents();
         
         Henkilo henkilo = this.henkilomalli.getHenkiloAt(id);

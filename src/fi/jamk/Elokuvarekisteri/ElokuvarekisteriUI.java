@@ -12,6 +12,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -91,8 +92,8 @@ public class ElokuvarekisteriUI extends JFrame {
         topPanel.add( tabbedPane, BorderLayout.CENTER );
         
         // koko
-        //setSize(1000,800);
-        pack();
+        setSize(1024,768);
+        
     
     }
     
@@ -123,28 +124,53 @@ public class ElokuvarekisteriUI extends JFrame {
         panel1.add(paneeli,BorderLayout.SOUTH);
         pack();
         
-        
+        LisaaElokuvaJDialog LEDialog = new LisaaElokuvaJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled);
         
         // tapahtuman käsittelijät
         lisaa.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                LisaaElokuvaJDialog LEDialog = new LisaaElokuvaJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled);
+                //LisaaElokuvaJDialog LEDialog = new LisaaElokuvaJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled);
                 LEDialog.setVisible(true);
             
             }
-        
+           
         });
         
-        muokkaa.addActionListener(new ActionListener(){
-        @Override
-            public void actionPerformed(ActionEvent e) {
-                MuokkaaElokuvaJDialog muokkaa = new MuokkaaElokuvaJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled, elokuvatable.getSelectedRow());
-              
-                
-                muokkaa.setVisible(true);
+        LEDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                System.out.println("jdialog window closed");
+
+                elokuvalista = new Elokuvalista();
+                elokuvamalli = new Elokuvamalli(elokuvalista);
+                elokuvatable.setModel(elokuvamalli);
+
             }
-        
+
+        });
+   
+        muokkaa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MuokkaaElokuvaJDialog MEDialog = new MuokkaaElokuvaJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled, elokuvatable.getSelectedRow());
+
+                MEDialog.setVisible(true);
+                
+                MEDialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        System.out.println("MEDialog window closed");
+
+                        elokuvalista = new Elokuvalista();
+                        elokuvamalli = new Elokuvamalli(elokuvalista);
+                        elokuvatable.setModel(elokuvamalli);
+
+                    }
+
+                });
+            }
+
         });
         
         poista.addActionListener(new ActionListener(){
@@ -185,28 +211,51 @@ public class ElokuvarekisteriUI extends JFrame {
         panel2.add(jScrollPane2,BorderLayout.CENTER);
         panel2.add(paneeli2,BorderLayout.SOUTH);
         pack();
+        LisaaHenkiloJDialog LHDialog = new LisaaHenkiloJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled);
         
-        // tapahtuman käsitttelijät Henkilön lisäykselle, järjestämiselle ja poistamiselle, TODO muokkaus
+        // tapahtuman käsitttelijät Henkilön lisäykselle, järjestämiselle ja poistamiselle
         lisaahenkilo.addActionListener(new ActionListener(){
         @Override
             public void actionPerformed(ActionEvent e) {
-                //henkilomalli.lisaa();              
-               
-                
-                LisaaHenkiloJDialog LHdialog = new LisaaHenkiloJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled);
-                LHdialog.setVisible(true); 
+                LHDialog.setVisible(true); 
             }
         
         });
-        muokkaa.addActionListener(new ActionListener(){
-        @Override
-            public void actionPerformed(ActionEvent e) {
-                MuokkaaHenkiloJDialog muokkaa = new MuokkaaHenkiloJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled, henkilotable.getSelectedRow());
-              
-                
-                muokkaa.setVisible(true);
-            }
         
+        LHDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                System.out.println("jdialog window closed");
+
+                henkilolista = new Henkilolista();
+                henkilomalli = new Henkilomalli(henkilolista);
+                henkilotable.setModel(henkilomalli);
+
+            }
+
+        });
+
+        muokkaa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MuokkaaHenkiloJDialog MHDialog = new MuokkaaHenkiloJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled, henkilotable.getSelectedRow());
+
+                MHDialog.setVisible(true);
+
+                MHDialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        System.out.println("MHDialog window closed");
+
+                        henkilolista = new Henkilolista();
+                        henkilomalli = new Henkilomalli(henkilolista);
+                        henkilotable.setModel(henkilomalli);
+
+                    }
+
+                });
+            }
+
         });
         poistahenkilo.addActionListener(new ActionListener(){
         @Override
@@ -336,7 +385,7 @@ public class ElokuvarekisteriUI extends JFrame {
         
         });
         
-        
+      
         
     }
     
@@ -418,14 +467,14 @@ public class ElokuvarekisteriUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //henkilomalli.lisaa();              
                 XmlReader reader = new XmlReader();
-
+                
                 try {
                     String movieName = hakukentta.getText();
-
+                    
                     movieName = movieName.replaceAll("\\s+", "+");
                     
                     elokuvantiedot = reader.getMovieXml(movieName);
-
+                    
                     nimikentta.setText(elokuvantiedot.get(0));
                     ohjaajakentta.setText(elokuvantiedot.get(1));
                     nayttelijatkentta.setText(elokuvantiedot.get(2));
@@ -434,11 +483,8 @@ public class ElokuvarekisteriUI extends JFrame {
                     pituuskentta.setText(elokuvantiedot.get(5));
                     juonikentta.setText(elokuvantiedot.get(6));
                     
-                    
-                   
-                   
                     try {
-
+                        
                         URL url = new URL(elokuvantiedot.get(7));
                         image = null;
                         image = ImageIO.read(url);
@@ -448,40 +494,50 @@ public class ElokuvarekisteriUI extends JFrame {
                         Logger.getLogger(ElokuvarekisteriUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     System.out.println("Kaytan kuvaa");
-
-                    // määritellään uusi imageIcon joka on image(luettu url)
-                    ImageIcon kuva1 = new ImageIcon(image);
-                    // muutetaan imageIcon kuvaksi jonka nimi on elokuvankuva
-                    Image elokuvankuva = kuva1.getImage();
-                    // skaalataan elokuvan kuva pienemmäksi
-                    Image pienennettykuva = elokuvankuva.getScaledInstance(140, 200, java.awt.Image.SCALE_SMOOTH);
-                    // laitetaan kuva1 paikalle pienennetty kuva
-                    kuva1 = new ImageIcon(pienennettykuva);
-                    // asettetaan kuva labeliin imageicon kuva1
-                    kuva.setIcon(kuva1);
+                    if (image != null) {
+                        // määritellään uusi imageIcon joka on image(luettu url)
+                        ImageIcon kuva1 = new ImageIcon(image);
+                        // muutetaan imageIcon kuvaksi jonka nimi on elokuvankuva
+                        Image elokuvankuva = kuva1.getImage();
+                        // skaalataan elokuvan kuva pienemmäksi
+                        Image pienennettykuva = elokuvankuva.getScaledInstance(140, 200, java.awt.Image.SCALE_SMOOTH);
+                        // laitetaan kuva1 paikalle pienennetty kuva
+                        kuva1 = new ImageIcon(pienennettykuva);
+                        // asettetaan kuva labeliin imageicon kuva1
+                        kuva.setIcon(kuva1);
+                    } else {
+                        kuva.setText("Ei kuvaa");
+                    }
                 } catch (TransformerException ex) {
                     Logger.getLogger(MuokkaaHenkiloJDialog.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            
         });
         
         // luodaan uusi elokuva olio nimeltä elokuva, lisätään se elokuva mallin kautta elokuva listaan.
         lisaaNappi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Elokuva elokuva = new Elokuva(elokuvamalli.getLastId()+1,
-                                                elokuvantiedot.get(0),
-                                                elokuvantiedot.get(1), 
-                                                elokuvantiedot.get(2), 
-                                                elokuvantiedot.get(3), 
-                                                elokuvantiedot.get(4), 
-                                                elokuvantiedot.get(5),
-                                                elokuvantiedot.get(6),
-                                                elokuvantiedot.get(7));
+                Elokuva elokuva = new Elokuva(elokuvamalli.getLastId() + 1,
+                        elokuvantiedot.get(0),
+                        elokuvantiedot.get(1),
+                        elokuvantiedot.get(2),
+                        elokuvantiedot.get(3),
+                        elokuvantiedot.get(4),
+                        elokuvantiedot.get(5),
+                        elokuvantiedot.get(6),
+                        elokuvantiedot.get(7));
                 elokuvamalli.lisaa(elokuva);
+                
+                System.out.println("jdialog window closed");
+                
+                elokuvalista = new Elokuvalista();
+                elokuvamalli = new Elokuvamalli(elokuvalista);
+                elokuvatable.setModel(elokuvamalli);
+                
             }
-
+            
         });
     }
     public static void main( String args[] ) {

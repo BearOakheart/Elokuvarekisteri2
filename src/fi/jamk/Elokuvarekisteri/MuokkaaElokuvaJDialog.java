@@ -27,7 +27,7 @@ public class MuokkaaElokuvaJDialog extends javax.swing.JDialog {
      */
     public MuokkaaElokuvaJDialog(ElokuvarekisteriUI parent, boolean modal, int id) {
         super(parent, modal);
-        muokattavaId = id;
+        muokattavaId = id-1;
         initComponents();
         
         Elokuva elokuva = this.elokuvamalli.getElokuvaAt(id);
@@ -38,7 +38,10 @@ public class MuokkaaElokuvaJDialog extends javax.swing.JDialog {
         lajiTxtField.setText(elokuva.getLajityyppi());
         julkaisuvuosiTxtField.setText(elokuva.getJulkaisuvuosi());
         pituusTxtField.setText(elokuva.getPituus());
-        juoniTxtField.setText(elokuva.getJuoni());
+        juoniTextArea.setText(elokuva.getJuoni());
+        
+        juoniTextArea.setLineWrap(true);
+        juoniTextArea.setWrapStyleWord(true);
         
         try {
             URL url = new URL(elokuva.getKuvaUrl());
@@ -97,8 +100,9 @@ public class MuokkaaElokuvaJDialog extends javax.swing.JDialog {
         valmisBtn = new javax.swing.JButton();
         peruutaBtn = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        juoniTxtField = new javax.swing.JTextField();
         kuvafield = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        juoniTextArea = new javax.swing.JTextArea();
 
         jLabel4.setText("jLabel2");
 
@@ -141,13 +145,17 @@ public class MuokkaaElokuvaJDialog extends javax.swing.JDialog {
 
         jLabel10.setText("Juoni:");
 
+        juoniTextArea.setColumns(20);
+        juoniTextArea.setRows(5);
+        jScrollPane1.setViewportView(juoniTextArea);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(valmisBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -163,11 +171,8 @@ public class MuokkaaElokuvaJDialog extends javax.swing.JDialog {
                             .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(juoniTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(julkaisuvuosiTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,16 +181,16 @@ public class MuokkaaElokuvaJDialog extends javax.swing.JDialog {
                                     .addComponent(ohjaajaTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(pituusTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(nimiTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(kuvafield, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)))))
-                .addContainerGap())
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(kuvafield, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nimiTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,17 +214,22 @@ public class MuokkaaElokuvaJDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(pituusTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(kuvafield, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(juoniTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(valmisBtn)
-                    .addComponent(peruutaBtn))
-                .addContainerGap())
+                            .addComponent(pituusTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(valmisBtn)
+                                    .addComponent(peruutaBtn)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(kuvafield, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(312, 312, 312))))
         );
 
         pack();
@@ -257,7 +267,7 @@ public class MuokkaaElokuvaJDialog extends javax.swing.JDialog {
         elokuvamalli.setValueAt(lajiTxtField.getText(),elokuva.getId(), 4);
         elokuvamalli.setValueAt(julkaisuvuosiTxtField.getText(),elokuva.getId(), 5);
         elokuvamalli.setValueAt(pituusTxtField.getText(),elokuva.getId(), 6);
-        elokuvamalli.setValueAt(juoniTxtField.getText(),elokuva.getId(), 7);
+        elokuvamalli.setValueAt(juoniTextArea.getText(),elokuva.getId(), 7);
         dispose();
         
     }//GEN-LAST:event_valmisBtnActionPerformed
@@ -283,10 +293,11 @@ public class MuokkaaElokuvaJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField julkaisuvuosiTxtField;
-    private javax.swing.JTextField juoniTxtField;
+    private javax.swing.JTextArea juoniTextArea;
     private javax.swing.JLabel kuvafield;
     private javax.swing.JTextField lajiTxtField;
     private javax.swing.JTextField nayttelijatTxtField;
