@@ -185,7 +185,9 @@ public class ElokuvarekisteriUI extends JFrame {
         muokkaa.addActionListener(new ActionListener(){
         @Override
             public void actionPerformed(ActionEvent e) {
-                MuokkaaHenkiloJFrame muokkaa = new MuokkaaHenkiloJFrame(henkilotable.getSelectedRow());
+                MuokkaaHenkiloJDialog muokkaa = new MuokkaaHenkiloJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled, henkilotable.getSelectedRow());
+              
+                
                 muokkaa.setVisible(true);
             }
         
