@@ -290,6 +290,7 @@ public class ElokuvarekisteriUI extends JFrame {
                         break;      
                 }
                 
+                
                 sisalto2.removeAll();
                 
                 finnKinoElokuvat.clear();
@@ -309,6 +310,8 @@ public class ElokuvarekisteriUI extends JFrame {
                 scrollpane = new JScrollPane(list);
                 
                 sisalto2.add(scrollpane);
+                
+                
             }
         
         });
