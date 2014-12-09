@@ -334,7 +334,9 @@ public class ElokuvarekisteriUI extends JFrame {
         JLabel vuosi = new JLabel("Vuosi:");
         JLabel pituus = new JLabel("Pituus:");
         JLabel juoni = new JLabel("Juoni:");
+        JLabel kuva = new JLabel();
        
+        
         
        
        
@@ -362,6 +364,7 @@ public class ElokuvarekisteriUI extends JFrame {
         sisaltoOikea.add(vuosikentta);
         sisaltoOikea.add(pituuskentta);
         sisaltoOikea.add(juonikentta);
+        sisaltoOikea.add(kuva);
        
         //sisaltoOikea.add(Box.createVerticalStrut(10));
         
@@ -370,7 +373,6 @@ public class ElokuvarekisteriUI extends JFrame {
         panel4.add(sisaltoOikea, BorderLayout.CENTER);
         
      
-        
         
         haeNappi.addActionListener(new ActionListener() {
             @Override
@@ -394,19 +396,24 @@ public class ElokuvarekisteriUI extends JFrame {
                     juonikentta.setText(elokuvantiedot.get(6));
                     
                     
-                    
-                    image = null;
+                   
+                   
                     try {
 
                         URL url = new URL(elokuvantiedot.get(7));
+                        image = null;
                         image = ImageIO.read(url);
                         System.err.println("kuva ladattu");
                     } catch (IOException ex) {
                         Logger.getLogger(ElokuvarekisteriUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     System.out.println("Kaytan kuvaa");
-                    JLabel kuva = new JLabel(new ImageIcon(image));
-                    sisaltoOikea.add(kuva);
+                    
+                    ImageIcon kuva1 = new ImageIcon(image);
+                    
+                    //JLabel kuva = new JLabel(new ImageIcon(image));
+                    
+                    kuva.setIcon(kuva1);
                 } catch (TransformerException ex) {
                     Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
