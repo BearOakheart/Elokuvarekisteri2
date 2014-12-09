@@ -430,13 +430,15 @@ public class ElokuvarekisteriUI extends JFrame {
         lisaaNappi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Elokuva elokuva = new Elokuva(elokuvantiedot.get(0),
+                Elokuva elokuva = new Elokuva(elokuvamalli.getLastId()+1,
+                                                elokuvantiedot.get(0),
                                                 elokuvantiedot.get(1), 
                                                 elokuvantiedot.get(2), 
                                                 elokuvantiedot.get(3), 
                                                 elokuvantiedot.get(4), 
                                                 elokuvantiedot.get(5),
-                                                elokuvantiedot.get(6));
+                                                elokuvantiedot.get(6),
+                                                elokuvantiedot.get(7));
                 elokuvamalli.lisaa(elokuva);
             }
 

@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author Asmo
  */
 public class Elokuva implements Serializable {
+        private int id;
         private String nimi;
         private String ohjaaja;
         private String nayttelijat;
@@ -19,9 +20,11 @@ public class Elokuva implements Serializable {
         private String julkaisuvuosi;
         private String pituus;
         private String juoni;
+        private String kuvaUrl;
 
 
-    public Elokuva(String nimi, String ohjaaja, String nayttelijat, String lajityyppi, String julkaisuvuosi, String pituus, String juoni) {
+    public Elokuva(int id,String nimi, String ohjaaja, String nayttelijat, String lajityyppi, String julkaisuvuosi, String pituus, String juoni, String kuvaUrl) {
+        this.id = id;
         this.nimi = nimi;
         this.ohjaaja = ohjaaja;
         this.nayttelijat = nayttelijat;
@@ -29,6 +32,23 @@ public class Elokuva implements Serializable {
         this.julkaisuvuosi = julkaisuvuosi;
         this.pituus = pituus;
         this.juoni = juoni;
+        this.kuvaUrl = kuvaUrl;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getKuvaUrl() {
+        return kuvaUrl;
+    }
+
+    public void setKuvaUrl(String kuvaUrl) {
+        this.kuvaUrl = kuvaUrl;
     }
     
         

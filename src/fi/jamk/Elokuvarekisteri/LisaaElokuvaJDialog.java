@@ -186,13 +186,15 @@ public class LisaaElokuvaJDialog extends javax.swing.JDialog {
     private void valmisBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valmisBtnActionPerformed
         // TODO add your handling code here:
        
-        Elokuva e = new Elokuva(nimiTxtField.getText(), 
+        Elokuva e = new Elokuva(elokuvamalli.getLastId()+1,
+                nimiTxtField.getText(), 
                 ohjaajaTxtField.getText(), 
                 nayttelijatTxtField.getText(), 
                 lajiTxtField.getText(), 
                 julkaisuvuosiTxtField.getText(), 
                 pituusTxtField.getText(), 
-                juoniTxtField.getText());
+                juoniTxtField.getText(),
+                "");
         
         elokuvamalli.lisaa(e);
         

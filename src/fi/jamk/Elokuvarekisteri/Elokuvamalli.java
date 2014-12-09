@@ -5,6 +5,7 @@
  */
 package fi.jamk.Elokuvarekisteri;
 
+import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -12,9 +13,9 @@ import javax.swing.table.AbstractTableModel;
  * @author Asmo
  */
 class Elokuvamalli extends AbstractTableModel {
-    private final String[] sarakeNimet = new String[]{"Nimi", "Ohjaaja", "Näyttelijät", "Lajityyppi", "Julkaisuvuosi", "Pituus (min)", "Juoni"};
+    private final String[] sarakeNimet = new String[]{"Id","Nimi", "Ohjaaja", "Näyttelijät", "Lajityyppi", "Julkaisuvuosi", "Pituus (min)", "Juoni","Kuva URL"};
     private Elokuvalista elokuvalista;
-    private Class<?>[] tyypit = new Class[]{String.class, String.class, String.class, String.class, Integer.class, Integer.class, String.class};
+    private Class<?>[] tyypit = new Class[]{Integer.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, String.class, String.class};
     
     public Elokuvamalli() {
         this.elokuvalista = new Elokuvalista();
@@ -32,18 +33,34 @@ class Elokuvamalli extends AbstractTableModel {
         return tyypit[sarakeIndeksi];
     }
     
+    public Integer getLastId() {
+        ArrayList<Elokuva> elokuvat = this.elokuvalista.palauta();
+        int koko = elokuvat.size();
+        Elokuva elokuva = elokuvat.get(koko-1);
+        return elokuva.getId();       
+    }
+    
+    public Elokuva getElokuvaAt(int id){
+        ArrayList<Elokuva> elokuvat = this.elokuvalista.palauta();
+        Elokuva elokuva = elokuvat.get(id);
+        return elokuva;  
+
+    }
+    
     @Override
     public Object getValueAt(int rivi, int sarake) {
         if (rivi < 0 || rivi >= elokuvalista.palauta().size()) return null;
         Elokuva elokuva = elokuvalista.palauta().get(rivi);
         switch (sarake) {
-            case 0:  return elokuva.getNimi();
-            case 1:  return elokuva.getOhjaaja();
-            case 2:  return elokuva.getNayttelijat();
-            case 3:  return elokuva.getLajityyppi();
-            case 4:  return elokuva.getJulkaisuvuosi();
-            case 5:  return elokuva.getPituus();
-            case 6:  return elokuva.getJuoni();    
+            case 0:  return elokuva.getId();
+            case 1:  return elokuva.getNimi();
+            case 2:  return elokuva.getOhjaaja();
+            case 3:  return elokuva.getNayttelijat();
+            case 4:  return elokuva.getLajityyppi();
+            case 5:  return elokuva.getJulkaisuvuosi();
+            case 6:  return elokuva.getPituus();
+            case 7:  return elokuva.getJuoni();
+            case 8:  return elokuva.getKuvaUrl();
             default: return null;
         }
     }

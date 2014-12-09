@@ -35,7 +35,7 @@ class Elokuvalista implements Serializable {
     File el = new File(elokuvanTiedot);
     
     if (!el.exists()) {
-        elokuvat.add(new Elokuva("Esimerkki elokuva", "Ohjannut Taavetti", "Nayttelijat", "Genre", "1999", "130", "JUONINININI"));
+        elokuvat.add(new Elokuva(01,"Esimerkki elokuva", "Ohjannut Taavetti", "Nayttelijat", "Genre", "1999", "130", "JUONINININI", "KUVAURL"));
         tallenna();
     }
     else {
@@ -119,7 +119,7 @@ class Elokuvalista implements Serializable {
     }
     // lisää uuden dummy elokuvan
     public void dummyLisaaUusi() {
-        elokuvat.add(new Elokuva("Esimerkki elokuva", "Ohjannut Taavetti", "Nayttelijat", "Genre", "1990", "130 min", "JUONINININI"));
+        elokuvat.add(new Elokuva(01,"Esimerkki elokuva", "Ohjannut Taavetti", "Nayttelijat", "Genre", "1990", "130 min", "JUONINININI","kuvaurl"));
         tallenna(); 
     }
     
