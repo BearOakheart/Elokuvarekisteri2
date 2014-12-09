@@ -223,15 +223,6 @@ public class ElokuvarekisteriUI extends JFrame {
             "Turku","Vantaa"};
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
         JComboBox jcb = new JComboBox(kaupungit);
         
         JButton testi = new JButton("testi");
@@ -248,6 +239,8 @@ public class ElokuvarekisteriUI extends JFrame {
         panel3.add(sisalto, BorderLayout.NORTH);
         panel3.add(sisalto2, BorderLayout.CENTER);
    
+        
+        
         testi.addActionListener(new ActionListener(){
         @Override
             public void actionPerformed(ActionEvent e) {
@@ -310,6 +303,7 @@ public class ElokuvarekisteriUI extends JFrame {
                 JList list = new JList(finnKinoElokuvat.toArray());
                 
                 JScrollPane scrollpane;
+                
                 scrollpane = new JScrollPane(list);
                 
                 sisalto2.add(scrollpane);
