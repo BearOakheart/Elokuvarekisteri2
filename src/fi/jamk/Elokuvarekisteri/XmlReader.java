@@ -200,11 +200,13 @@ public class XmlReader {
                 Element titleElem3 = (Element) titlelist3.item(0);
                 Node titleNode3 = titleElem3.getChildNodes().item(0);
                 
-                finnKinoElokuvat.add(titleNode.getNodeValue());
+                finnKinoElokuvat.add(i,titleNode.getNodeValue() +" "+titleNode1.getNodeValue()+" "+titleNode2.getNodeValue()+" "+titleNode3.getNodeValue());
+                System.out.println(finnKinoElokuvat.get(i));
+                /*
                 finnKinoElokuvat.add(titleNode1.getNodeValue());
                 finnKinoElokuvat.add(titleNode2.getNodeValue());
                 finnKinoElokuvat.add(titleNode3.getNodeValue());
-                
+                */
                 //System.out.println(finnKinoElokuvat.get(0));
                 
                 
@@ -223,7 +225,7 @@ public class XmlReader {
                 
             }
                
-            System.out.println(finnKinoElokuvat.toString());
+            
             /*
                 System.out.println(finnKinoElokuvat.get(1).toString());
                 System.out.println(finnKinoElokuvat.get(2).toString());
