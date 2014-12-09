@@ -35,9 +35,7 @@ class Elokuvalista implements Serializable {
     File el = new File(elokuvanTiedot);
     
     if (!el.exists()) {
-        
-        elokuvat.add(new Elokuva(01,"Esimerkki elokuva", "Ohjannut Taavetti", "Nayttelijat", "Genre", "1999", "130", "JUONINININI", "KUVAURL"));
-        System.out.println("TOIMII TÄHÄN ASTI");
+      elokuvat.add(new Elokuva(01,"Esimerkki elokuva", "Ohjannut Taavetti", "Nayttelijat", "Genre", "1999", "130", "JUONINININI", "KUVAURL"));
         tallenna();
     }
     else {

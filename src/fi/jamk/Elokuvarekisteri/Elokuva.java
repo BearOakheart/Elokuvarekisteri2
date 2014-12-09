@@ -108,6 +108,6 @@ public class Elokuva implements Serializable {
     }
     @Override
     public String toString() {
-        return "[" + nimi + ", " + ohjaaja + ", " + julkaisuvuosi + ", " + pituus + " min ," + lajityyppi + "]";
+        return "["+ id +", " + nimi + ", " + ohjaaja + ", " + nayttelijat + ", "+ lajityyppi +", " + julkaisuvuosi + ", " + pituus + " min ," + juoni +","+kuvaUrl+ "]";
     }
 }
