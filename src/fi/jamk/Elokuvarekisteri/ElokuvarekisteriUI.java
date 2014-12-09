@@ -100,13 +100,13 @@ public class ElokuvarekisteriUI extends JFrame {
         panel1.setLayout(new BorderLayout());
         
         JButton lisaa = new JButton("Lisää elokuva");
-        JButton jarjesta = new JButton("Järjestä julkaisuvuoden mukaan");
+        JButton muokkaa = new JButton("Muokkaa");
         JButton poista = new JButton("Poista valittu");
         
         JPanel paneeli = new JPanel();
         
         paneeli.add(lisaa);
-        paneeli.add(jarjesta);
+        paneeli.add(muokkaa);
         paneeli.add(poista);
         
         jScrollPane = new javax.swing.JScrollPane();
@@ -122,6 +122,8 @@ public class ElokuvarekisteriUI extends JFrame {
         panel1.add(paneeli,BorderLayout.SOUTH);
         pack();
         
+        
+        
         // tapahtuman käsittelijät
         lisaa.addActionListener(new ActionListener(){
             @Override
@@ -129,6 +131,17 @@ public class ElokuvarekisteriUI extends JFrame {
                 LisaaElokuvaJDialog LEDialog = new LisaaElokuvaJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled);
                 LEDialog.setVisible(true);
             
+            }
+        
+        });
+        
+        muokkaa.addActionListener(new ActionListener(){
+        @Override
+            public void actionPerformed(ActionEvent e) {
+                MuokkaaElokuvaJDialog muokkaa = new MuokkaaElokuvaJDialog(ElokuvarekisteriUI.this, rootPaneCheckingEnabled, elokuvatable.getSelectedRow());
+              
+                
+                muokkaa.setVisible(true);
             }
         
         });
@@ -423,6 +436,7 @@ public class ElokuvarekisteriUI extends JFrame {
                         image = null;
                         image = ImageIO.read(url);
                         System.err.println("kuva ladattu");
+                        
                     } catch (IOException ex) {
                         Logger.getLogger(ElokuvarekisteriUI.class.getName()).log(Level.SEVERE, null, ex);
                     }

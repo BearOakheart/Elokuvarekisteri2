@@ -137,10 +137,13 @@ class Elokuvalista implements Serializable {
     
     public void paivita(Object uusi, int rivi, int sarake) {
         Elokuva elokuva = elokuvat.get(rivi);
-        if (sarake == 0) elokuva.setNimi((String) uusi);
-        else if (sarake == 1) elokuva.setOhjaaja((String) uusi);
-        else if (sarake == 2) elokuva.setJulkaisuvuosi(((String) uusi));
-        else if (sarake == 3) elokuva.setPituus(((String) uusi));
+        if (sarake == 1) elokuva.setNimi((String) uusi);
+        else if (sarake == 2) elokuva.setOhjaaja((String) uusi);
+        else if (sarake == 3) elokuva.setNayttelijat((String) uusi);
+        else if (sarake == 4) elokuva.setLajityyppi((String) uusi);
+        else if (sarake == 5) elokuva.setJulkaisuvuosi((String) uusi);
+        else if (sarake == 6) elokuva.setPituus((String) uusi);
+        else if (sarake == 7) elokuva.setJuoni((String) uusi);
         
         elokuvat.remove(rivi);
         elokuvat.add(rivi, elokuva);

@@ -194,14 +194,12 @@ public class MuokkaaHenkiloJDialog extends javax.swing.JDialog {
 
     private void ValmisBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValmisBtnActionPerformed
         // TODO add your handling code here:
-        Henkilo h = new Henkilo(henkilomalli.getLastId()+1, 
-                EtunimiTextField.getText(), 
-                SukunimiTextField.getText(), 
-                Integer.parseInt(SyntymavuosiTextField.getText()), 
-                KotimaaTextField.getText(), 
-                RooliComboBox.getSelectedItem().toString()); 
-
-        henkilomalli.lisaa(h);
+        Henkilo henkilo = this.henkilomalli.getHenkiloAt(muokattavaId);
+        henkilomalli.setValueAt(EtunimiTextField.getText(), henkilo.getId(), 1);
+        henkilomalli.setValueAt(SukunimiTextField.getText(), henkilo.getId(), 2);
+        henkilomalli.setValueAt(Integer.parseInt(SyntymavuosiTextField.getText()), henkilo.getId(), 3);
+        henkilomalli.setValueAt(KotimaaTextField.getText(), henkilo.getId(), 4);
+        henkilomalli.setValueAt(RooliComboBox.getSelectedItem().toString(), henkilo.getId(), 5);
         
         /*Henkilolista hl = new Henkilolista();
         hl.lue();*/
