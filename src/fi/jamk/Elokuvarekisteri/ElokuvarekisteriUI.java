@@ -296,7 +296,7 @@ public class ElokuvarekisteriUI extends JFrame {
                 
                 xmlreader.setKaupunki(kaupunki);
                 
-                xmlreader.readFinnKinoXML();  
+                //xmlreader.readFinnKinoXML();  
                 
                 finnKinoElokuvat = xmlreader.readFinnKinoXML();
         
