@@ -45,10 +45,12 @@ public class MuokkaaElokuvaJDialog extends javax.swing.JDialog {
             image = null;
             image = ImageIO.read(url);
             System.err.println("kuva ladattu");
+            
         } catch (IOException ex) {
             Logger.getLogger(ElokuvarekisteriUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Kaytan kuvaa");
+                    if (image != null) {
 
                     // määritellään uusi imageIcon joka on image(luettu url)
                     ImageIcon kuva1 = new ImageIcon(image);
@@ -60,6 +62,10 @@ public class MuokkaaElokuvaJDialog extends javax.swing.JDialog {
                     kuva1 = new ImageIcon(pienennettykuva);
                     // asettetaan kuva labeliin imageicon kuva1
                     kuvafield.setIcon(kuva1);
+                    }
+                    else {
+                    kuvafield.setText("EI KUVAA");
+                    }
     }
 
     /**

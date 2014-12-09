@@ -11,6 +11,7 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -155,6 +156,8 @@ public class ElokuvarekisteriUI extends JFrame {
             elokuvamalli.poistaRivi(valittuRivi);
             }
         });
+        
+       
     }
     
     public final void teePanel2() {
@@ -484,5 +487,6 @@ public class ElokuvarekisteriUI extends JFrame {
     public static void main( String args[] ) {
         new ElokuvarekisteriUI().setVisible(true);
     }
-    
+ 
+  
 }

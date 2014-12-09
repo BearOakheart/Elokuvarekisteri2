@@ -6,6 +6,8 @@
 
 package fi.jamk.Elokuvarekisteri;
 
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author F7347
@@ -19,6 +21,8 @@ public class LisaaElokuvaJDialog extends javax.swing.JDialog {
     public LisaaElokuvaJDialog(ElokuvarekisteriUI parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+       
     }
 
     /**
@@ -204,9 +208,10 @@ public class LisaaElokuvaJDialog extends javax.swing.JDialog {
         elokuvamalli = new Elokuvamalli(elokuvalista);*/
         
         
-        elokuvamalli.lisaaDummy();
+      //  elokuvamalli.lisaaDummy();
         System.out.println("toimii");
-             
+        
+        
         dispose();
         
     }//GEN-LAST:event_valmisBtnActionPerformed
