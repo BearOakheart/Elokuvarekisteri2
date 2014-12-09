@@ -47,7 +47,7 @@ public class XmlReader {
     
     private String kaupunki;
     private String tieto;
-    
+    private String tiedot[];
     //private String[] finnkinoElokuvat = new String[]{ "elokuvanNimi", "Esitysaika", "Kesto", "Genre"};
     
     private ArrayList<String> finnKinoElokuvat = new ArrayList<String>();
@@ -153,15 +153,15 @@ public class XmlReader {
         }
  */
     
-        public void readFinnKinoXML() {
+        public ArrayList<String> readFinnKinoXML() {
             
             
             
            DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 	   Date date = new Date();
-           //kaupunki = "1002";
+          
            String url = "http://www.finnkino.fi/xml/Schedule/?area="+kaupunki+"&dt="+dateFormat.format(date);
-           
+           finnKinoElokuvat.clear();
            
            
             try {
@@ -200,42 +200,19 @@ public class XmlReader {
                 Element titleElem3 = (Element) titlelist3.item(0);
                 Node titleNode3 = titleElem3.getChildNodes().item(0);
                 
-                finnKinoElokuvat.add(i,titleNode.getNodeValue() +" "+titleNode1.getNodeValue()+" "+titleNode2.getNodeValue()+" "+titleNode3.getNodeValue());
-                System.out.println(finnKinoElokuvat.get(i));
-                /*
-                finnKinoElokuvat.add(titleNode1.getNodeValue());
-                finnKinoElokuvat.add(titleNode2.getNodeValue());
-                finnKinoElokuvat.add(titleNode3.getNodeValue());
-                */
-                //System.out.println(finnKinoElokuvat.get(0));
+                String nayttoAika = titleNode1.getNodeValue().substring(11);
                 
                 
-                //LengthInMinutes   
-                //tieto = titleNode.getNodeValue();
-                
-                
-                //finnKinoElokuvat.add();
-                /*
-                System.out.println(titleNode.getNodeValue());
-                System.out.println(titleNode1.getNodeValue());
-                System.out.println(titleNode2.getNodeValue());
-                System.out.println(titleNode3.getNodeValue());
-                */
-                 //System.out.println(finnKinoElokuvat.get(i));
-                
-            }
+                finnKinoElokuvat.add(i,titleNode.getNodeValue() +" - "+nayttoAika+" - "+titleNode2.getNodeValue()+" min"+" - "+titleNode3.getNodeValue());
+                //System.out.println(finnKinoElokuvat.get(i));
+               System.out.println(nayttoAika);
                
-            
-            /*
-                System.out.println(finnKinoElokuvat.get(1).toString());
-                System.out.println(finnKinoElokuvat.get(2).toString());
-                System.out.println(finnKinoElokuvat.get(3).toString());
-                System.out.println(finnKinoElokuvat.get(4).toString());*/
                 
+            }    
             } 
             catch (Exception e) {System.out.println(e);}
             
-            
+            return finnKinoElokuvat;
     }
 }
 

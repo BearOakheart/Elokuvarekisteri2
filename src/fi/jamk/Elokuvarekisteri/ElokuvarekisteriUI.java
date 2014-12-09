@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -31,6 +32,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.xml.transform.TransformerException;
+import org.xml.sax.XMLReader;
 
 /**
  *
@@ -57,6 +59,7 @@ public class ElokuvarekisteriUI extends JFrame {
     private JScrollPane jScrollPane2;
     
     private ArrayList<String> elokuvantiedot = new ArrayList<String>();
+    private ArrayList<String> finnKinoElokuvat = new ArrayList<String>();
     
     public ElokuvarekisteriUI() {
         super("Elokuvarekisteri");
@@ -204,6 +207,9 @@ public class ElokuvarekisteriUI extends JFrame {
         sisalto.setLayout(new FlowLayout(FlowLayout.LEFT));     
         JLabel otsikko = new JLabel("");
         
+        JPanel sisalto2 = new JPanel();
+        sisalto2.setLayout(new FlowLayout(FlowLayout.LEFT));
+        
         String[] kaupungit = {"Pääkaupunkiseutu",
             "Espoo","Espoo: Omena",
             "Espoo: Sello",
@@ -215,29 +221,33 @@ public class ElokuvarekisteriUI extends JFrame {
             "Pori","Tampere",
             "Tampere: Cine Atlas","Tampere: Plevna",
             "Turku","Vantaa"};
-      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         JComboBox jcb = new JComboBox(kaupungit);
-
+        
         JButton testi = new JButton("testi");
-        JTextArea textArea = new JTextArea("hihi");
+        
+        
+        JScrollPane js = new JScrollPane();
         
         sisalto.add(jcb);
         sisalto.add(testi);
         sisalto.add(otsikko);
         
+       
         
-        
-          
         panel3.add(sisalto, BorderLayout.NORTH);
-        
-        JScrollPane js = new JScrollPane();
-        
-        sisalto.add(textArea);
-        
-        panel3.add(js, BorderLayout.CENTER);
-        
-        
-        
+        panel3.add(sisalto2, BorderLayout.CENTER);
+   
         testi.addActionListener(new ActionListener(){
         @Override
             public void actionPerformed(ActionEvent e) {
@@ -285,6 +295,9 @@ public class ElokuvarekisteriUI extends JFrame {
                         break;      
                 }
                 
+                sisalto2.removeAll();
+                
+                finnKinoElokuvat.clear();
                 
                 XmlReader xmlreader = new XmlReader();
                 
@@ -292,7 +305,14 @@ public class ElokuvarekisteriUI extends JFrame {
                 
                 xmlreader.readFinnKinoXML();  
                 
-                textArea.append(xmlreader.getTieto());
+                finnKinoElokuvat = xmlreader.readFinnKinoXML();
+        
+                JList list = new JList(finnKinoElokuvat.toArray());
+                
+                JScrollPane scrollpane;
+                scrollpane = new JScrollPane(list);
+                
+                sisalto2.add(scrollpane);
             }
         
         });
