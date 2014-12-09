@@ -48,6 +48,10 @@ public class XmlReader {
     private String kaupunki;
     private String tieto;
     
+    //private String[] finnkinoElokuvat = new String[]{ "elokuvanNimi", "Esitysaika", "Kesto", "Genre"};
+    
+    private ArrayList<String> finnKinoElokuvat = new ArrayList<String>();
+    
     public void setKaupunki(String kaupunki){
     this.kaupunki = kaupunki;
     };
@@ -159,6 +163,7 @@ public class XmlReader {
            String url = "http://www.finnkino.fi/xml/Schedule/?area="+kaupunki+"&dt="+dateFormat.format(date);
            
            
+           
             try {
                 DocumentBuilderFactory dbf = 
                     DocumentBuilderFactory.newInstance();
@@ -167,8 +172,8 @@ public class XmlReader {
                 
             doc.getDocumentElement().normalize();
             
-            System.out.println ("Root element: " + 
-                        doc.getDocumentElement().getNodeName());
+            //System.out.println ("Root element: " + 
+            //          doc.getDocumentElement().getNodeName());
             
             NodeList items = doc.getElementsByTagName("Show");
             for(int i = 0; i< items.getLength(); i++){
@@ -178,21 +183,55 @@ public class XmlReader {
                     continue;
                 Element e = (Element) n;
                 
-                NodeList titlelist  = e.getElementsByTagName("Theatre");
+                NodeList titlelist  = e.getElementsByTagName("Title");
                 Element titleElem = (Element) titlelist.item(0);
-                
                 Node titleNode = titleElem.getChildNodes().item(0);
-                System.out.println(titleNode.getNodeValue());
+                //System.out.println(titleNode.getNodeValue());
                 
-                tieto = titleNode.getNodeValue();
-
+                NodeList titlelist1  = e.getElementsByTagName("dttmShowStart");
+                Element titleElem1 = (Element) titlelist1.item(0);
+                Node titleNode1 = titleElem1.getChildNodes().item(0);
+                
+                NodeList titlelist2  = e.getElementsByTagName("LengthInMinutes");
+                Element titleElem2 = (Element) titlelist2.item(0);
+                Node titleNode2 = titleElem2.getChildNodes().item(0);
+                
+                NodeList titlelist3  = e.getElementsByTagName("Genres");
+                Element titleElem3 = (Element) titlelist3.item(0);
+                Node titleNode3 = titleElem3.getChildNodes().item(0);
+                
+                finnKinoElokuvat.add(titleNode.getNodeValue());
+                finnKinoElokuvat.add(titleNode1.getNodeValue());
+                finnKinoElokuvat.add(titleNode2.getNodeValue());
+                finnKinoElokuvat.add(titleNode3.getNodeValue());
+                
+                //System.out.println(finnKinoElokuvat.get(0));
+                
+                
+                //LengthInMinutes   
+                //tieto = titleNode.getNodeValue();
+                
+                
+                //finnKinoElokuvat.add();
+                /*
+                System.out.println(titleNode.getNodeValue());
+                System.out.println(titleNode1.getNodeValue());
+                System.out.println(titleNode2.getNodeValue());
+                System.out.println(titleNode3.getNodeValue());
+                */
+                 //System.out.println(finnKinoElokuvat.get(i));
                 
             }
-            
-            
+               
+            System.out.println(finnKinoElokuvat.toString());
+            /*
+                System.out.println(finnKinoElokuvat.get(1).toString());
+                System.out.println(finnKinoElokuvat.get(2).toString());
+                System.out.println(finnKinoElokuvat.get(3).toString());
+                System.out.println(finnKinoElokuvat.get(4).toString());*/
                 
             } 
-            catch (Exception e) {}
+            catch (Exception e) {System.out.println(e);}
             
             
     }
