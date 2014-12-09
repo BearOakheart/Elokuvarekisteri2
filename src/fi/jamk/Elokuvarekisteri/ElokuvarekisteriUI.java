@@ -408,11 +408,16 @@ public class ElokuvarekisteriUI extends JFrame {
                         Logger.getLogger(ElokuvarekisteriUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     System.out.println("Kaytan kuvaa");
-                    
+
+                    // määritellään uusi imageIcon joka on image(luettu url)
                     ImageIcon kuva1 = new ImageIcon(image);
-                    
-                    //JLabel kuva = new JLabel(new ImageIcon(image));
-                    
+                    // muutetaan imageIcon kuvaksi jonka nimi on elokuvankuva
+                    Image elokuvankuva = kuva1.getImage();
+                    // skaalataan elokuvan kuva pienemmäksi
+                    Image pienennettykuva = elokuvankuva.getScaledInstance(140, 200, java.awt.Image.SCALE_SMOOTH);
+                    // laitetaan kuva1 paikalle pienennetty kuva
+                    kuva1 = new ImageIcon(pienennettykuva);
+                    // asettetaan kuva labeliin imageicon kuva1
                     kuva.setIcon(kuva1);
                 } catch (TransformerException ex) {
                     Logger.getLogger(MuokkaaHenkiloJFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -421,7 +426,7 @@ public class ElokuvarekisteriUI extends JFrame {
 
         });
         
-        
+        // luodaan uusi elokuva olio nimeltä elokuva, lisätään se elokuva mallin kautta elokuva listaan.
         lisaaNappi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
